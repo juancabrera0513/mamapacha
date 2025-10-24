@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tokens */
+:root {
+  --radius: 16px;
+}
+
+.container-xl {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-semibold transition shadow-soft;
+}
+.btn-primary { @apply bg-primary text-white hover:opacity-90 active:opacity-85; }
+.btn-outline { @apply border-2 border-primary text-primary hover:bg-primary hover:text-white; }
+
+.card {
+  @apply bg-white rounded-2xl shadow-soft;
+}
