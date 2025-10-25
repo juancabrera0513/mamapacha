@@ -8,15 +8,12 @@ export default function Hero() {
       aria-label="Mama Pacha hero"
       className={[
         "relative isolate w-full overflow-hidden",
-        // Alto completo para que NO se vea la siguiente sección
         "min-h-[100svh]",
-        // Color de respaldo por si el PNG tarda en cargar
         "bg-[#1cbcc6]",
-        // Para anclar los CTAs abajo
         "flex",
       ].join(" ")}
     >
-      {/* Fondo responsive */}
+      {/* Fondo (imagen principal hero) */}
       <picture>
         <source srcSet="/brand/logo2-mobile.png" media="(max-width: 640px)" />
         <img
@@ -36,41 +33,35 @@ export default function Hero() {
         />
       </picture>
 
-      {/* Scrim opcional para legibilidad (puedes borrar este div si no lo quieres) */}
+      {/* Scrim opcional para legibilidad */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/0" />
 
       {/* Contenido (CTAs) anclado al borde inferior */}
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 flex-1">
         <div className="h-full flex items-end">
-          {/* Menos padding inferior = botones más ABAJO (pegados al borde) */}
-          <div className="w-full pb-6 sm:pb-8 md:pb-10 lg:pb-12 pb-[env(safe-area-inset-bottom)]">
+          <div className="w-full pb-8 sm:pb-10 md:pb-12">
             <div className="flex flex-wrap gap-4 justify-center sm:justify-end">
-              {/* SHOP SPICES */}
+              {/* SHOP MENU & MERCH (antes: SHOP SPICES) */}
               <a
                 href="#shop"
                 className={[
                   "inline-flex h-11 px-6 items-center justify-center rounded-full",
-                  "text-base font-bold tracking-wider",
-                  "border-2 border-[#E7303A] text-[#E7303A]",
-                  "hover:bg-[#E7303A] hover:text-white",
-                  "transition-colors shadow-sm",
+                  "text-base font-semibold",
+                  "bg-white text-neutral-900 hover:bg-neutral-900 hover:text-white transition-colors",
                 ].join(" ")}
               >
-                SHOP&nbsp;SPICES
+                Shop Menu &amp; Merch
               </a>
 
-              {/* CATERING & CONTACT */}
+              {/* CTA secundaria opcional */}
               <a
                 href="#contact"
                 className={[
                   "inline-flex h-11 px-6 items-center justify-center rounded-full",
-                  "text-base font-bold tracking-wider",
-                  "border-2 border-white text-white",
-                  "hover:bg-white hover:text-[#1cbcc6]",
-                  "transition-colors shadow-sm",
+                  "text-base font-semibold border border-white/80 text-white hover:bg-white/10 transition-colors",
                 ].join(" ")}
               >
-                CATERING&nbsp;&nbsp;&&nbsp;&nbsp;CONTACT
+                Catering Inquiry
               </a>
             </div>
           </div>

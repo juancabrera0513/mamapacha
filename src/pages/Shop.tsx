@@ -1,88 +1,195 @@
 // src/pages/Shop.tsx
-import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { PRODUCTS, currency } from "@/data/site";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import CategoryTabs, { Category } from "@/components/CategoryTabs";
+import ProductCardHome, { HomeProduct } from "@/components/ProductCardHome";
 import { useCart } from "@/context/CartContext";
+import { PRODUCTS, Product as CatalogProduct } from "@/data/site";
 
-export default function Shop() {
+const BRAND_BORDER = "border-[#1cbcc6]";
+
+// ===== URL category (default ALL) =====
+function useCategoryFromUrl(defaultCat: Category = "all"): Category {
+  const { search } = useLocation();
+  const s = new URLSearchParams(search).get("category") as Category | null;
+  if (s === "all" || s === "spices" || s === "merch" || s === "catering") return s;
+  return defaultCat;
+}
+
+// ===== Mapping HomeProduct -> CatalogProduct =====
+function toCatalogProduct(p: HomeProduct): CatalogProduct {
+  const computed =
+    typeof p.salePrice === "number"
+      ? p.salePrice
+      : typeof p.price === "number"
+      ? p.price
+      : typeof p.fromPrice === "number"
+      ? p.fromPrice
+      : 0;
+
+  return {
+    id: p.id,
+    name: p.name,
+    description: p.description,
+    price: computed,
+    size: p.size,
+    image: p.image,
+    badge: undefined,
+  };
+}
+
+// ===== Helpers =====
+function isSpiceName(name: string) {
+  const n = name.toLowerCase();
+  return (
+    n.includes("adobo") ||
+    n.includes("sazón") ||
+    n.includes("sazon") ||
+    n.includes("seasoning") ||
+    n.includes("spice")
+  );
+}
+
+function makeSpiceCardLike(p: any): HomeProduct {
+  return {
+    id: p.id,
+    name: p.name,
+    image: p.image,
+    description: p.description,
+    size: p.size,
+    price: p.price,
+  };
+}
+
+// ===== Local data (MERCH / CATERING) =====
+const MERCH: HomeProduct[] = [
+  {
+    id: "mama-pacha-apron",
+    name: "Mama Pacha Sabor Apron",
+    image: "/products/apron.png",
+    description: "Durable, comfortable apron for your kitchen sessions.",
+    price: 25,
+  },
+  {
+    id: "mama-pacha-chef-coat",
+    name: "Mama Pacha Sabor Chef Coat",
+    image: "/products/chef-coat.jpg",
+    description: "Professional chef coat—clean look, comfy fit.",
+    price: 30,
+  },
+];
+
+const CATERING: HomeProduct[] = [
+  {
+    id: "pulled-pork-or-chicken",
+    name: "Mama Pacha Sabor Pulled Pork or Chicken",
+    image: "/products/pulled-pork-or-chicken.jpg",
+    description: "Slow-cooked flavor, perfect for bowls, tacos, or sliders.",
+  },
+  {
+    id: "empanadas-uncooked-4",
+    name:
+      "Mama Pacha Sabor Empanadas — Un-cooked (ready to bake or fry at home) — 4 per order, per filling",
+    image: "/products/empanadas-uncooked-4.jpg",
+    description: "Freshly assembled and frozen. Bake or fry at home.",
+    fromPrice: 13.0,
+    titleSizeClass: "text-sm sm:text-[15px]",
+  },
+];
+
+export default function ShopPage() {
+  const urlCat = useCategoryFromUrl("all");
+  const [category, setCategory] = React.useState<Category>(urlCat);
   const { add } = useCart();
-  const [q, setQ] = useState("");
-  const list = useMemo(() => {
-    const s = q.trim().toLowerCase();
-    if (!s) return PRODUCTS;
-    return PRODUCTS.filter((p) =>
-      [p.name, p.description, p.notes, (p.badges || []).join(" ")].join(" ").toLowerCase().includes(s)
-    );
-  }, [q]);
+
+  React.useEffect(() => {
+    if (urlCat !== category) setCategory(urlCat);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlCat]);
+
+  // Spices primero (Sazón, Adobo, luego otros)
+  const spiceProducts: HomeProduct[] = React.useMemo(() => {
+    const primary: HomeProduct[] = [];
+    const rest: HomeProduct[] = [];
+
+    const sazon =
+      PRODUCTS.find((p) => p.id === "sazon") ||
+      PRODUCTS.find(
+        (p) =>
+          p.name?.toLowerCase().includes("sazón") ||
+          p.name?.toLowerCase().includes("sazon")
+      );
+
+    const adobo =
+      PRODUCTS.find((p) => p.id === "adobo") ||
+      PRODUCTS.find((p) => p.name?.toLowerCase().includes("adobo"));
+
+    if (sazon) primary.push(makeSpiceCardLike(sazon));
+    if (adobo) primary.push(makeSpiceCardLike(adobo));
+
+    PRODUCTS.forEach((p) => {
+      const already = (sazon && p.id === sazon.id) || (adobo && p.id === adobo.id);
+      if (!already && isSpiceName(p.name ?? p.id)) {
+        rest.push(makeSpiceCardLike(p));
+      }
+    });
+
+    return [...primary, ...rest];
+  }, []);
+
+  const merchProducts: HomeProduct[] = MERCH;
+  const cateringProducts: HomeProduct[] = CATERING;
+
+  // Mezcla para "All"
+  const allProducts: HomeProduct[] = [
+    ...spiceProducts,
+    ...merchProducts,
+    ...cateringProducts,
+  ];
+
+  const currentList =
+    category === "all"
+      ? allProducts
+      : category === "spices"
+      ? spiceProducts
+      : category === "merch"
+      ? merchProducts
+      : cateringProducts;
 
   return (
-    <main className="px-4 sm:px-6 py-14 sm:py-16 max-w-6xl mx-auto">
-      {/* Shop hero */}
-      <header className="text-center">
-        <h1 className="font-serif text-3xl sm:text-4xl font-extrabold">Our Spices & Blends</h1>
-        <p className="mt-2 text-neutral-600">
-          Salt-free, preservative-free, crafted with love. Bring Puerto Rican flavor home.
-        </p>
+    <main
+      className="relative min-h-[60svh] pt-24 sm:pt-28" // <-- ESPACIO PARA HEADER FIJO
+      style={{ paddingTop: "var(--header-h, 36px)" }} // fallback si defines --header-h global
+    >
+      {/* Fondo #41c0cc */}
+      <div className="absolute inset-0 -z-10 bg-[#41c0cc]" />
 
-        {/* Search (simple) */}
-        <div className="mt-6 flex justify-center">
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search blends, notes, tags…"
-            className="w-full max-w-md h-11 px-4 rounded-full border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-[#E7303A]"
-          />
+      <div className="container-xl py-12 sm:py-16">
+        <header className="mb-8 sm:mb-10 text-center">
+          <h1 className="font-serif text-3xl sm:text-4xl font-extrabold tracking-tight">
+            Shop
+          </h1>
+          <p className="mt-2 text-sm text-neutral-900/90">
+            Browse our <strong>All</strong>, <strong>Spices</strong>,{" "}
+            <strong>Merch</strong>, and <strong>Catering</strong> items.
+          </p>
+        </header>
+
+        <CategoryTabs value={category} onChange={setCategory} />
+
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:gap-7 md:grid-cols-2 lg:grid-cols-3">
+          {currentList.map((p) => (
+            <ProductCardHome
+              key={p.id}
+              product={p}
+              accent="red" // botones rojos en /shop
+              onAdd={(prod) => add(toCatalogProduct(prod))}
+            />
+          ))}
         </div>
-      </header>
 
-      {/* Grid */}
-      <section className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {list.map((p) => (
-          <article key={p.id} className="rounded-2xl border border-neutral-200 bg-white overflow-hidden shadow-sm p-5 sm:p-6">
-            <Link to={`/shop/${p.slug ?? p.id}`} className="block">
-              <div className="w-full grid place-items-center">
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="h-56 sm:h-64 w-auto object-contain"
-                  loading="lazy"
-                />
-              </div>
-            </Link>
-
-            <div className="mt-4">
-              <div className="flex items-start justify-between gap-3">
-                <h2 className="font-semibold">
-                  <Link to={`/shop/${p.slug ?? p.id}`} className="hover:underline">{p.name}</Link>
-                </h2>
-                {p.size && <span className="text-sm text-neutral-600">{p.size}</span>}
-              </div>
-
-              {Array.isArray(p.badges) && p.badges.length > 0 && (
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {p.badges.map((b: string, i: number) => (
-                    <span key={i} className="inline-flex items-center rounded-full border border-[#E7303A]/30 bg-[#E7303A]/10 px-2.5 py-1 text-xs font-semibold text-[#E7303A]">{b}</span>
-                  ))}
-                </div>
-              )}
-
-              {(p.notes || p.description) && (
-                <p className="mt-3 text-sm text-neutral-700 line-clamp-3">{p.notes ?? p.description}</p>
-              )}
-
-              <div className="mt-5 flex items-center justify-between">
-                <div className="text-lg font-bold">{currency(p.price)}</div>
-                <button
-                  onClick={() => add(p)}
-                  className="h-10 px-4 rounded-full text-sm font-semibold border-2 border-[#E7303A] text-[#E7303A] hover:bg-[#E7303A] hover:text-white transition"
-                >
-                  Add to cart
-                </button>
-              </div>
-            </div>
-          </article>
-        ))}
-      </section>
+     
+      </div>
     </main>
   );
 }
