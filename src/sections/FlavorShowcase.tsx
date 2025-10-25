@@ -1,11 +1,10 @@
-// src/sections/FlavorShowcase.tsx
 import React from "react";
 
 type Props = {
-  videoId: string;          // YouTube ID or full URL
+  videoId: string;              // ID o URL de YouTube
   title?: string;
-  images?: string[];        // 6 decorative PNGs
-  pressHref?: string;       // e.g. "/press" or "#press"
+  images?: string[];            // 6 PNGs decorativos
+  pressHref?: string;           // "/press" o "#press"
 };
 
 const defaultImages = [
@@ -43,40 +42,31 @@ export default function FlavorShowcase({
           A quick peek at our kitchen, spices, and tradition.
         </p>
 
-        <div className="relative mt-10">
-          {/* Video centrado */}
-          <div className="mx-auto w-full max-w-4xl rounded-2xl overflow-hidden ring-1 ring-black/10 shadow-xl bg-black">
-            <div className="aspect-video overflow-hidden">
+        {/* Tarjeta del video (el iframe va un poco "retraído" con margin interno) */}
+        <div className="relative mt-10 mx-auto max-w-4xl rounded-2xl ring-1 ring-black/10 shadow-xl bg-black/90 overflow-visible">
+          {/* Decoraciones pequeñas por encima (no capturan clics) */}
+          <DecorOverlaySmall images={images} />
+
+          {/* El iframe se hace un poquito más pequeño con m-4/6/8 */}
+          <div className="relative z-0 m-4 sm:m-6 md:m-8 rounded-xl overflow-hidden bg-black">
+            <div className="aspect-video">
               <iframe
                 className="block h-full w-full"
-                src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&playsinline=1`}
+                src={`https://www.youtube-nocookie.com/embed/${id}?playsinline=1&modestbranding=1&rel=0`}
                 title="Mama Pacha — video"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope"
                 allowFullScreen
                 frameBorder={0}
-                referrerPolicy="strict-origin-when-cross-origin"
               />
             </div>
           </div>
-
-          {/* Desktop (≥md): decor visibles alrededor SIN offsets negativos */}
-          <DecorOverlay images={images} />
-
-          {/* Mobile (<md): los centrales debajo del video */}
-          <DecorMobileBelow images={images} />
         </div>
 
         {/* CTA Press */}
         <div className="mt-8 flex justify-center">
           <a
             href={pressHref}
-            className={[
-              "inline-flex items-center gap-2 h-11 px-6 rounded-full",
-              "text-sm sm:text-base font-bold tracking-wider",
-              "border-2 border-[#E7303A] text-[#E7303A]",
-              "hover:bg-[#E7303A] hover:text-white transition-colors shadow-sm",
-            ].join(" ")}
+            className="inline-flex items-center gap-2 h-11 px-6 rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-[#E7303A] text-[#E7303A] hover:bg-[#E7303A] hover:text-white transition-colors shadow-sm"
             aria-label="Go to Press & Interviews"
           >
             Press & Interviews
@@ -89,86 +79,102 @@ export default function FlavorShowcase({
     </section>
   );
 }
-
-/** Overlay decor (desktop & up) — SIN offsets negativos, usando translate en los bordes */
-function DecorOverlay({ images }: { images: string[] }) {
+/** Decoraciones pequeñas en mobile y GRANDES en desktop.
+ *  Visibles en móvil/tablet (no cortadas), y más “afuera” en desktop.
+ *  No bloquean clics (pointer-events-none). */
+function DecorOverlaySmall({ images }: { images: string[] }) {
   const srcs = [...images, ...Array(6)].slice(0, 6) as string[];
 
   return (
     <>
       <style>{`
-        @keyframes floatyA { 0% { transform: translateY(0) rotate(0) } 50% { transform: translateY(-16px) rotate(2deg) } 100% { transform: translateY(0) rotate(0) } }
-        @keyframes floatyB { 0% { transform: translateY(0) rotate(0) } 50% { transform: translateY(18px) rotate(-3deg) } 100% { transform: translateY(0) rotate(0) } }
-        @media (prefers-reduced-motion: reduce) { .anim-md { animation: none !important } }
+        @keyframes floatA { 0% { transform: translateY(0) } 50% { transform: translateY(-7px) } 100% { transform: translateY(0) } }
+        @keyframes floatB { 0% { transform: translateY(0) } 50% { transform: translateY(9px) } 100% { transform: translateY(0) } }
+        @media (min-width: 768px) {
+          @keyframes floatA { 0% { transform: translateY(0) } 50% { transform: translateY(-16px) } 100% { transform: translateY(0) } }
+          @keyframes floatB { 0% { transform: translateY(0) } 50% { transform: translateY(18px) } 100% { transform: translateY(0) } }
+        }
+        @media (prefers-reduced-motion: reduce) { .anim-float { animation: none !important } }
       `}</style>
 
-      {/* Nota: visibles solo en md+ */}
-      {/* LEFT — top / middle / bottom (pegados al borde con translate hacia afuera) */}
+      {/* TOP corners */}
       <img
         src={srcs[0]} alt="" aria-hidden
-        className="hidden md:block absolute pointer-events-none drop-shadow-2xl
-                   left-0 -translate-x-[25%] top-[-60px] w-40 lg:w-56 rotate-[-6deg] anim-md"
-        style={{ animation: "floatyA 5.8s ease-in-out infinite" }}
+        className="
+          pointer-events-none absolute z-10 top-2
+          left-0 -translate-x-[10%]            /* móvil: se asoma sin cortar */
+          sm:-left-6 sm:translate-x-0          /* tablet: un poco más afuera */
+          md:-left-20                          /* desktop: como te gustaba */
+          w-10 sm:w-12 md:w-28
+          drop-shadow-xl anim-float
+        "
+        style={{ animation: "floatA 5.8s ease-in-out infinite" }}
       />
-      <img
-        src={srcs[1]} alt="" aria-hidden
-        className="hidden md:block absolute pointer-events-none drop-shadow-2xl
-                   left-0 -translate-x-[30%] top-1/3 -translate-y-1/2 w-44 lg:w-60 rotate-[8deg] anim-md"
-        style={{ animation: "floatyB 6.6s ease-in-out infinite" }}
-      />
-      <img
-        src={srcs[2]} alt="" aria-hidden
-        className="hidden md:block absolute pointer-events-none drop-shadow-2xl
-                   left-0 -translate-x-[22%] bottom-[-60px] w-40 lg:w-56 rotate-[16deg] anim-md"
-        style={{ animation: "floatyA 5.4s ease-in-out infinite" }}
-      />
-
-      {/* RIGHT — top / middle / bottom */}
       <img
         src={srcs[3]} alt="" aria-hidden
-        className="hidden md:block absolute pointer-events-none drop-shadow-2xl
-                   right-0 translate-x-[25%] top-[-60px] w-40 lg:w-56 rotate-[10deg] anim-md"
-        style={{ animation: "floatyB 6.2s ease-in-out infinite" }}
+        className="
+          pointer-events-none absolute z-10 top-2
+          right-0 translate-x-[10%]
+          sm:-right-6 sm:translate-x-0
+          md:-right-20
+          w-10 sm:w-12 md:w-28
+          drop-shadow-xl anim-float
+        "
+        style={{ animation: "floatB 6.2s ease-in-out infinite" }}
+      />
+
+      {/* MID sides */}
+      <img
+        src={srcs[1]} alt="" aria-hidden
+        className="
+          pointer-events-none absolute z-10 top-1/2 -translate-y-1/2
+          left-0 -translate-x-[12%]
+          sm:-left-8 sm:translate-x-0
+          md:-left-20
+          w-10 sm:w-12 md:w-32
+          drop-shadow-xl anim-float
+        "
+        style={{ animation: "floatB 6.6s ease-in-out infinite" }}
       />
       <img
         src={srcs[4]} alt="" aria-hidden
-        className="hidden md:block absolute pointer-events-none drop-shadow-2xl
-                   right-0 translate-x-[30%] top-1/3 -translate-y-1/2 w-44 lg:w-60 rotate-[-8deg] anim-md"
-        style={{ animation: "floatyA 7.1s ease-in-out infinite" }}
+        className="
+          pointer-events-none absolute z-10 top-1/2 -translate-y-1/2
+          right-0 translate-x-[12%]
+          sm:-right-8 sm:translate-x-0
+          md:-right-20
+          w-10 sm:w-12 md:w-32
+          drop-shadow-xl anim-float
+        "
+        style={{ animation: "floatA 7.1s ease-in-out infinite" }}
+      />
+
+      {/* BOTTOM corners */}
+      <img
+        src={srcs[2]} alt="" aria-hidden
+        className="
+          pointer-events-none absolute z-10 bottom-2
+          left-0 -translate-x-[10%]
+          sm:-left-6 sm:translate-x-0
+          md:-left-20
+          w-10 sm:w-12 md:w-28
+          drop-shadow-xl anim-float
+        "
+        style={{ animation: "floatA 5.2s ease-in-out infinite" }}
       />
       <img
         src={srcs[5]} alt="" aria-hidden
-        className="hidden md:block absolute pointer-events-none drop-shadow-2xl
-                   right-0 translate-x-[22%] bottom-[-60px] w-40 lg:w-56 rotate-[-14deg] anim-md"
-        style={{ animation: "floatyB 5.6s ease-in-out infinite" }}
+        className="
+          pointer-events-none absolute z-10 bottom-2
+          right-0 translate-x-[10%]
+          sm:-right-6 sm:translate-x-0
+          md:-right-20
+          w-10 sm:w-12 md:w-28
+          drop-shadow-xl anim-float
+        "
+        style={{ animation: "floatB 5.6s ease-in-out infinite" }}
       />
     </>
   );
 }
 
-/** Mobile-only decor (deben aparecer *debajo* del video) */
-function DecorMobileBelow({ images }: { images: string[] }) {
-  const leftMid = images[1] ?? "/decor/decor2.png";
-  const rightMid = images[4] ?? "/decor/decor5.png";
-
-  return (
-    <div className="md:hidden mt-6 px-2 -mx-2 flex items-center justify-between">
-      <img
-        src={leftMid}
-        alt=""
-        aria-hidden
-        className="h-20 w-auto drop-shadow-xl rotate-[6deg] -ml-3 select-none"
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        src={rightMid}
-        alt=""
-        aria-hidden
-        className="h-20 w-auto drop-shadow-xl -rotate-[6deg] -mr-3 select-none"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-  );
-}

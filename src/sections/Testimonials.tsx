@@ -20,7 +20,6 @@ const REVIEWS: Review[] = [
   { name: "Daniel Bastian", text: "Puerto Rican recently moved to Missouri. They only gave me Leslie's number for some pastries and seasoning, but I regret not having bought more than a dozen because I thought I was on my island eating the pastries. The texture and flavor were incredible." },
   { name: "Paloma Rodriguez", text: "Their service, the flavor of their dishes and the enormous heart that Mama Pacha carries are a combination that anyone will enjoy. 💯❤️" },
   { name: "Maria Elisa Aguilo", text: "The food is spectacular. I love everything about it. I truly recommend it 100%." },
-  { name: "Jasmin Cabrera", text: "❤️" },
   { name: "Alejandra Almonte", text: "Unmatched flavor ❣️❣️❣️🫶💯" },
   { name: "Elsa’s Cleaning Company", text: "I tried the seasonings and they gave my meals a delicious flavor. They will never be missing from my kitchen again. 🫶" },
 ];

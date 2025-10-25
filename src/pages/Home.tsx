@@ -10,6 +10,10 @@ import Testimonials from "../sections/Testimonials";
 import FeaturedOn from "../sections/FeaturedOn";        // ⬅️ new
 import Supporters from "../sections/Supporters";        // (keep if you still want it)
 import Contact from "../sections/Contact";
+import { FEATURED_OUTLETS } from "@/data/press";
+
+
+
 
 export default function Home() {
   return (
@@ -46,14 +50,12 @@ export default function Home() {
       <Testimonials />
 
       <FeaturedOn
-        outlets={[
-          { src: "/logos/press1.png", alt: "Fox 2 News", href: "#" },
-          { src: "/logos/press2.png", alt: "Univision", href: "#" },
-          { src: "/logos/press3.png", alt: "Voyage STL", href: "#" },
-          { src: "/logos/press4.png", alt: "STL Today", href: "#" },
-        ]}
-        ctaHref="/press"
-      />
+  title="Featured On"
+  subtitle="Media coverage and interviews."
+  outlets={FEATURED_OUTLETS}
+  ctaHref="/press"
+  theme="light"   // ← fondo claro
+/>
 
       <Contact />
     </>
