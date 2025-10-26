@@ -64,7 +64,8 @@ Sitemap: ${BASE_URL}/sitemap.xml
   console.log("✓ sitemap.xml y robots.txt generados en /dist");
 }
 
-build().catch((e) => {
-  console.error("Error generando sitemap:", e);
+build().catch((e: any) => {
+  // Log más explícito por si vuelve a fallar
+  console.error("Error generando sitemap:", e?.stack || e);
   process.exit(1);
 });

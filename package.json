@@ -7,7 +7,7 @@
       "dev": "vite",
       "build": "vite build",
       "preview": "vite preview",
-      "postbuild": "node --loader ts-node/esm scripts/generate-sitemap.ts"
+      "postbuild": "node --import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"ts-node/esm\", pathToFileURL(\"./\"));' --experimental-specifier-resolution=node scripts/generate-sitemap.ts"
     },
     "dependencies": {
       "react": "18.3.1",
