@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+    "postbuild": "ts-node scripts/generate-sitemap.ts"
     },
     "dependencies": {
         "react": "18.3.1",
@@ -15,13 +16,15 @@
         "react-router-dom": "^7.9.4"
     },
     "devDependencies": {
-        "@types/node": "^24.3.1",
+        "@types/node": "^24.9.1",
         "@types/react": "18.3.5",
         "@types/react-dom": "18.3.0",
         "@vitejs/plugin-react": "^5.0.2",
         "autoprefixer": "10.4.20",
         "postcss": "8.4.47",
+        "sitemap": "^8.0.1",
         "tailwindcss": "3.4.10",
+        "ts-node": "^10.9.2",
         "typescript": "5.6.2",
         "vite": "5.4.8"
     }
