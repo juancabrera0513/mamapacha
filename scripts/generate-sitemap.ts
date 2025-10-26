@@ -3,8 +3,8 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { SitemapStream, streamToPromise } from "sitemap";
 
-// IMPORT: productos desde tu data TS
-import { PRODUCTS } from "../src/data/site";
+// 👇 Importa la data con extensión .ts (requerido en ESM + ts-node)
+import { PRODUCTS } from "../src/data/site.ts";
 
 const BASE_URL = (process.env.SITE_URL || "https://www.mamapachasabor.com").replace(/\/$/, "");
 
