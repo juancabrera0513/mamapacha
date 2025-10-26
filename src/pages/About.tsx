@@ -1,5 +1,6 @@
 // src/pages/About.tsx
 import React from "react";
+import PressCTA from "@/components/PressCTA";
 import { Link } from "react-router-dom";
 
 export default function AboutPage() {
@@ -152,12 +153,8 @@ export default function AboutPage() {
               </div>
 
               <div className="pt-2">
-                <Link
-                  to="/press"
-                  className="inline-flex items-center justify-center rounded-full px-5 h-11 text-sm font-semibold bg-[#E7303A] text-white hover:bg-[#c3252e] transition"
-                >
-                  For press inquiries complete this form
-                </Link>
+                {/* Modal de prensa en sitio */}
+                <PressCTA />
               </div>
             </div>
           </div>

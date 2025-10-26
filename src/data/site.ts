@@ -124,9 +124,9 @@ export const SOCIAL: SocialLinks = {
   instagram: "https://www.instagram.com/mamapachasabor/",
   facebook: "https://www.facebook.com/mamapachasabor",
   tiktok: "https://www.tiktok.com/@mamapachasabor",
-  // youtube: "",
-  // email: "mailto:hello@mamapachasabor.com",
+  email: "mailto:hello@mamapachasabor.com", // <— agrega tu correo aquí
 };
+
 
 // ---------- Supporters / Featured (logos) ----------
 export const SUPPORTERS: Supporter[] = [

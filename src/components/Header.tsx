@@ -2,8 +2,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
+import { SOCIAL } from "@/data/site";
 
-/* ================= Icons ================= */
+/* Icons */
 function IconFacebook(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
@@ -21,7 +22,7 @@ function IconInstagram(props: React.SVGProps<SVGSVGElement>) {
 function IconTiktok(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M21.5 8.1a6.7 6.7 0 0 1-4.6-2V16a6 6 0 1 1-6-6 6 6 0 0 1 1 .08V7.2a8.7 8.7 0 0 0-1-.1 8 8 0 1 0 8 8V8.8a8.9 8.9 0 0 0 4.6 1.4z"/>
+      <path d="M21.5 8.1a6.7 6.7 0 0 1-4.6-2V16a6 6 0 1 1-6-6 6 6 0 0 1 1 .08V7.2a8.7 8.7 0 0 0-1-.1 8 8 0 1 0 8 8V8.8a8.9 8.9 0 0 0 4.6 1.4z" />
     </svg>
   );
 }
@@ -33,11 +34,9 @@ function IconMail(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-/* ============== Helpers / Styles ============== */
+/* Styles */
 const brandTextDark = "text-[#0b5e63]";
-const brandRingTeal = "ring-[#1cbcc6]/40";
 const cartBadgeRed = "bg-[#E7303A]";
-
 const navPill = (active: boolean, onDark: boolean) =>
   [
     "px-3 py-1.5 rounded-full text-sm font-semibold transition-colors",
@@ -47,6 +46,7 @@ const navPill = (active: boolean, onDark: boolean) =>
       ? "text-neutral-100 hover:bg-white/10"
       : "text-neutral-900 hover:bg-neutral-100",
   ].join(" ");
+const isHttp = (href: string) => /^https?:\/\//i.test(href);
 
 export default function Header() {
   const { count } = useCart();
@@ -60,17 +60,14 @@ export default function Header() {
   const lastY = useRef(0);
   const idleTimer = useRef<number | null>(null);
 
-  // Hide on scroll + scrolled state
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY || window.pageYOffset;
       setScrolled(y > 8);
-
       const goingDown = y > lastY.current;
       if (y < 16) setHidden(false);
       else setHidden(goingDown);
       lastY.current = y;
-
       if (idleTimer.current) cancelAnimationFrame(idleTimer.current);
       idleTimer.current = requestAnimationFrame(() => setHidden(false));
     };
@@ -82,10 +79,8 @@ export default function Header() {
     };
   }, []);
 
-  // Close mobile on route change
   useEffect(() => setOpen(false), [pathname]);
 
-  // Measure header height -> CSS var --header-h
   useEffect(() => {
     const setVar = () => {
       const h = wrapRef.current?.offsetHeight ?? 0;
@@ -104,7 +99,19 @@ export default function Header() {
   }, []);
 
   const isHome = pathname === "/";
-  const onDarkHero = isHome && !scrolled; // cuando estás arriba del home
+  const onDarkHero = isHome && !scrolled;
+
+  const socials = [
+    SOCIAL.facebook ? { key: "facebook", href: SOCIAL.facebook, Icon: IconFacebook, label: "Facebook" } : null,
+    SOCIAL.instagram ? { key: "instagram", href: SOCIAL.instagram, Icon: IconInstagram, label: "Instagram" } : null,
+    SOCIAL.tiktok ? { key: "tiktok", href: SOCIAL.tiktok, Icon: IconTiktok, label: "TikTok" } : null,
+    SOCIAL.email ? { key: "email", href: SOCIAL.email, Icon: IconMail, label: "Email" } : null,
+  ].filter(Boolean) as { key: string; href: string; Icon: React.FC<React.SVGProps<SVGSVGElement>>; label: string }[];
+
+  const socialBtnClass = [
+    "inline-flex h-9 w-9 items-center justify-center rounded-xl border transition",
+    onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-700 hover:bg-neutral-100",
+  ].join(" ");
 
   return (
     <header
@@ -123,68 +130,50 @@ export default function Header() {
               : "bg-white text-neutral-900 border-neutral-200 shadow-sm",
           ].join(" ")}
         >
-          {/* Logo */}
+          {/* Logo con chip teal cuando el fondo es claro */}
           <Link to="/" className="pl-3 sm:pl-4" aria-label="Go to homepage">
-            <img
-              src="/brand/logo.png"
-              alt="Logo"
-              width={44}
-              height={44}
-              className="h-8 w-auto sm:h-9 object-contain"
-              loading="eager"
-              /* fetchPriority removed to silence React warning */
-              /* if you want the attribute anyway: add fetchpriority="high" */
-            />
+            <span className={onDarkHero ? "" : "inline-flex items-center justify-center rounded-xl bg-[#41c0cc] p-1 ring-1 ring-[#1cbcc6]/40"}>
+              <img
+                src="/brand/logo.png"
+                alt="Logo"
+                width={44}
+                height={44}
+                className="h-8 w-auto sm:h-9 object-contain"
+                loading="eager"
+              />
+            </span>
           </Link>
 
-          {/* Nav centrado */}
+          {/* Nav (todas a /page, sin Reviews) */}
           <nav className="hidden md:flex items-center gap-2">
-            <a href="/#shop" className={navPill(false, onDarkHero)}>Shop</a>
+            <NavLink to="/shop" className={({ isActive }) => navPill(isActive, onDarkHero)}>Shop</NavLink>
             <NavLink to="/about" className={({ isActive }) => navPill(isActive, onDarkHero)}>Our Story</NavLink>
-            <a href="/#testimonials" className={navPill(false, onDarkHero)}>Reviews</a>
             <NavLink to="/press" className={({ isActive }) => navPill(isActive, onDarkHero)}>Press</NavLink>
             <NavLink to="/recipes" className={({ isActive }) => navPill(isActive, onDarkHero)}>Recipes</NavLink>
-            <a href="/#contact" className={navPill(false, onDarkHero)}>Contact</a>
+            <NavLink to="/contact" className={({ isActive }) => navPill(isActive, onDarkHero)}>Contact</NavLink>
           </nav>
 
           {/* Social + acciones */}
           <div className="flex items-center gap-2 pr-3 sm:pr-4">
-            {/* Socials */}
             <div className="hidden sm:flex items-center gap-2 mr-1">
-              {/* ====== ACTUALIZA HREFS ====== */}
-              <a href="https://facebook.com/yourpage" target="_blank" rel="noreferrer noopener"
-                 aria-label="Facebook"
-                 className={["inline-flex h-9 w-9 items-center justify-center rounded-xl border transition",
-                  onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-700 hover:bg-neutral-100"].join(" ")}>
-                <IconFacebook className="h-4 w-4" />
-              </a>
-              <a href="https://instagram.com/yourpage" target="_blank" rel="noreferrer noopener"
-                 aria-label="Instagram"
-                 className={["inline-flex h-9 w-9 items-center justify-center rounded-xl border transition",
-                  onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-700 hover:bg-neutral-100"].join(" ")}>
-                <IconInstagram className="h-4 w-4" />
-              </a>
-              <a href="https://tiktok.com/@yourpage" target="_blank" rel="noreferrer noopener"
-                 aria-label="TikTok"
-                 className={["inline-flex h-9 w-9 items-center justify-center rounded-xl border transition",
-                  onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-700 hover:bg-neutral-100"].join(" ")}>
-                <IconTiktok className="h-4 w-4" />
-              </a>
-              <a href="mailto:hello@mamapacha.example" aria-label="Email"
-                 className={["inline-flex h-9 w-9 items-center justify-center rounded-xl border transition",
-                  onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-700 hover:bg-neutral-100"].join(" ")}>
-                <IconMail className="h-4 w-4" />
-              </a>
+              {socials.map(({ key, href, Icon, label }) =>
+                isHttp(href) ? (
+                  <a key={key} href={href} target="_blank" rel="noreferrer noopener" aria-label={label} className={socialBtnClass}>
+                    <Icon className="h-4 w-4" />
+                  </a>
+                ) : (
+                  <a key={key} href={href} aria-label={label} className={socialBtnClass}>
+                    <Icon className="h-4 w-4" />
+                  </a>
+                )
+              )}
             </div>
 
-            {/* Cart */}
             <Link
               to="/#cart"
               className={[
                 "relative inline-flex items-center justify-center h-10 w-10 rounded-xl border transition",
-                onDarkHero
-                  ? "border-white/30 text-white hover:bg-white/10"
-                  : "border-neutral-200 text-neutral-800 hover:bg-neutral-100",
+                onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-800 hover:bg-neutral-100",
               ].join(" ")}
               aria-label="Cart"
               title="Cart"
@@ -195,13 +184,10 @@ export default function Header() {
               </span>
             </Link>
 
-            {/* Mobile menu button */}
             <button
               className={[
                 "md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border transition",
-                onDarkHero
-                  ? "border-white/30 text-white hover:bg-white/10"
-                  : "border-neutral-200 text-neutral-800 hover:bg-neutral-100",
+                onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-800 hover:bg-neutral-100",
               ].join(" ")}
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
@@ -219,36 +205,28 @@ export default function Header() {
             id="mobile-nav"
             className={[
               "md:hidden mt-2 rounded-2xl border backdrop-blur-md",
-              onDarkHero
-                ? "bg-white/25 border-white/30 text-white supports-[backdrop-filter]:bg-white/25"
-                : "bg-white text-neutral-900 border-neutral-200 shadow-sm",
+              onDarkHero ? "bg-white/25 border-white/30 text-white supports-[backdrop-filter]:bg-white/25" : "bg-white text-neutral-900 border-neutral-200 shadow-sm",
             ].join(" ")}
           >
             <div className="grid p-2">
-              <a href="/#shop" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Shop</a>
+              <NavLink to="/shop" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Shop</NavLink>
               <NavLink to="/about" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Our Story</NavLink>
-              <a href="/#testimonials" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Reviews</a>
               <NavLink to="/press" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Press</NavLink>
               <NavLink to="/recipes" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Recipes</NavLink>
-              <a href="/#contact" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Contact</a>
-              {/* Socials in mobile */}
+              <NavLink to="/contact" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Contact</NavLink>
+
               <div className="mt-2 flex items-center gap-2 px-2 pb-2">
-                <a href="https://facebook.com/yourpage" target="_blank" rel="noreferrer noopener" aria-label="Facebook"
-                   className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/30 hover:bg-white/10">
-                  <IconFacebook className="h-4 w-4" />
-                </a>
-                <a href="https://instagram.com/yourpage" target="_blank" rel="noreferrer noopener" aria-label="Instagram"
-                   className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/30 hover:bg-white/10">
-                  <IconInstagram className="h-4 w-4" />
-                </a>
-                <a href="https://tiktok.com/@yourpage" target="_blank" rel="noreferrer noopener" aria-label="TikTok"
-                   className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/30 hover:bg-white/10">
-                  <IconTiktok className="h-4 w-4" />
-                </a>
-                <a href="mailto:hello@mamapacha.example" aria-label="Email"
-                   className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/30 hover:bg-white/10">
-                  <IconMail className="h-4 w-4" />
-                </a>
+                {socials.map(({ key, href, Icon, label }) =>
+                  isHttp(href) ? (
+                    <a key={`m-${key}`} href={href} target="_blank" rel="noreferrer noopener" aria-label={label} className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/30 hover:bg-white/10">
+                      <Icon className="h-4 w-4" />
+                    </a>
+                  ) : (
+                    <a key={`m-${key}`} href={href} aria-label={label} className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/30 hover:bg-white/10">
+                      <Icon className="h-4 w-4" />
+                    </a>
+                  )
+                )}
               </div>
             </div>
           </div>
