@@ -1,0 +1,34 @@
+[
+    {
+      "id": "adobo",
+      "slug": "adobo",
+      "name": "Adobo (No Salt)",
+      "description": "Puerto Rican–inspired spice blend. No salt, no preservatives—pure flavor for everyday cooking.",
+      "notes": "Garlic-forward, oregano, citrus.",
+      "price": 10,
+      "size": "4 oz",
+      "image": "/shop/adobo.png",
+      "images": ["/shop/adobo.png", "/shop/adobo-side.png"],
+      "badges": ["Salt-free", "No preservatives"],
+      "badge": "Best Seller",
+      "usage": ["Chicken", "Pork", "Veggies", "Soups"],
+      "nutrition": { "servings": "about 18 (1 tsp)", "sodiumMg": 0, "calories": 0 },
+      "tags": ["blend", "salt-free", "garlic"]
+    },
+    {
+      "id": "sazon",
+      "slug": "sazon",
+      "name": "Sazón (All Natural)",
+      "description": "All-natural color and flavor enhancer—made to elevate your dishes, not overpower them.",
+      "notes": "Annatto, coriander, garlic — clean color & flavor.",
+      "price": 10,
+      "size": "4 oz",
+      "image": "/shop/sazon.png",
+      "images": ["/shop/sazon.png", "/shop/sazon-side.png"],
+      "badges": ["No preservatives", "All-natural color"],
+      "usage": ["Rice", "Stews", "Veggies", "Beans"],
+      "nutrition": { "servings": "about 18 (1 tsp)", "sodiumMg": 0, "calories": 0 },
+      "tags": ["blend", "color", "annatto"]
+    }
+  ]
+  

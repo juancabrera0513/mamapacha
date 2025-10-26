@@ -1,25 +1,24 @@
 // src/data/site.ts
+import PRODUCTS_JSON from "./products.json" assert { type: "json" };
 
-// ---------- Types ----------
 export type Product = {
   id: string;
   slug?: string;
   name: string;
-  price: number;            // USD
+  price: number;
   size?: string;
-  image: string;            // primary image (PNG preferred)
-  images?: string[];        // gallery
+  image: string;
+  images?: string[];
   description?: string;
-  notes?: string;           // short tasting notes
-  badges?: string[];        // e.g. ["Salt-free", "No preservatives"]
-  usage?: string[];         // suggested uses
+  notes?: string;
+  badges?: string[];
+  usage?: string[];
   nutrition?: {
     servings: string;
     sodiumMg?: number;
     calories?: number;
   };
   tags?: string[];
-  /** Legacy single badge support (compat) */
   badge?: string;
 };
 
@@ -317,3 +316,5 @@ export const currency = (n: number) =>
     currency: "USD",
     maximumFractionDigits: 2,
   }).format(n);
+
+  
