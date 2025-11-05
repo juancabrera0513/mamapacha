@@ -1,6 +1,4 @@
 // src/data/site.ts
-import PRODUCTS_JSON from "./products.json" assert { type: "json" };
-
 export type Product = {
   id: string;
   slug?: string;
@@ -13,20 +11,12 @@ export type Product = {
   notes?: string;
   badges?: string[];
   usage?: string[];
-  nutrition?: {
-    servings: string;
-    sodiumMg?: number;
-    calories?: number;
-  };
+  nutrition?: { servings: string; sodiumMg?: number; calories?: number };
   tags?: string[];
   badge?: string;
 };
 
-export type Testimonial = {
-  name: string;
-  role?: string;
-  quote: string;
-};
+export type Testimonial = { name: string; role?: string; quote: string };
 
 export type SocialLinks = {
   instagram?: string;
@@ -36,18 +26,8 @@ export type SocialLinks = {
   email?: string;
 };
 
-export type Supporter = {
-  logo: string;
-  alt: string;
-  href?: string;
-};
-
-export type PressVideo = {
-  id: string;
-  title: string;
-  youtubeId: string;
-  note?: string;
-};
+export type Supporter = { logo: string; alt: string; href?: string };
+export type PressVideo = { id: string; title: string; youtubeId: string; note?: string };
 
 export type Recipe = {
   id: string;
@@ -58,7 +38,7 @@ export type Recipe = {
   steps: string[];
 };
 
-// ---------- Products (Home highlights + full catalog) ----------
+/* ============ Products ============ */
 export const PRODUCTS: Product[] = [
   {
     id: "adobo",
@@ -70,9 +50,8 @@ export const PRODUCTS: Product[] = [
     price: 10,
     size: "4 oz",
     image: "/shop/adobo.png",
-    images: ["/shop/adobo.png", "/shop/adobo-side.png"], // opcional
+    images: ["/shop/adobo.png", "/shop/adobo-side.png", "/shop/adobo-lifestyle.jpg"],
     badges: ["Salt-free", "No preservatives"],
-    badge: "Best Seller",
     usage: ["Chicken", "Pork", "Veggies", "Soups"],
     nutrition: { servings: "about 18 (1 tsp)", sodiumMg: 0, calories: 0 },
     tags: ["blend", "salt-free", "garlic"],
@@ -87,7 +66,7 @@ export const PRODUCTS: Product[] = [
     price: 10,
     size: "4 oz",
     image: "/shop/sazon.png",
-    images: ["/shop/sazon.png", "/shop/sazon-side.png"], // opcional
+    images: ["/shop/sazon.png", "/shop/sazon-side.png", "/shop/sazon-lifestyle.jpg"],
     badges: ["No preservatives", "All-natural color"],
     usage: ["Rice", "Stews", "Veggies", "Beans"],
     nutrition: { servings: "about 18 (1 tsp)", sodiumMg: 0, calories: 0 },
@@ -95,39 +74,15 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
-
-// ---------- Testimonials (generic fallback; you can override with the long list) ----------
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    name: "Carla R.",
-    role: "Home Cook",
-    quote:
-      "This product is a miracle. No salt, no MSG, and 100% natural—my family loves every dish.",
-  },
-  {
-    name: "Luis M.",
-    role: "Food Enthusiast",
-    quote:
-      "The Adobo tastes like home. It’s clean, aromatic, and makes weeknight meals effortless.",
-  },
-  {
-    name: "Jasmine",
-    role: "Customer",
-    quote:
-      "Sazón adds beautiful color and flavor without additives. I use it on veggies, rice—everything.",
-  },
-];
-
-// ---------- Social ----------
+/* ============ Social ============ */
 export const SOCIAL: SocialLinks = {
   instagram: "https://www.instagram.com/mamapachasabor/",
   facebook: "https://www.facebook.com/mamapachasabor",
   tiktok: "https://www.tiktok.com/@mamapachasabor",
-  email: "mailto:hello@mamapachasabor.com", // <— agrega tu correo aquí
+  email: "mailto:hello@mamapachasabor.com",
 };
 
-
-// ---------- Supporters / Featured (logos) ----------
+/* ============ Supporters ============ */
 export const SUPPORTERS: Supporter[] = [
   { logo: "/supporters/supporter-1.png", alt: "Featured Partner 1" },
   { logo: "/supporters/supporter-2.png", alt: "Featured Partner 2" },
@@ -136,10 +91,9 @@ export const SUPPORTERS: Supporter[] = [
   { logo: "/supporters/supporter-5.png", alt: "Featured Partner 5" },
 ];
 
-// ---------- About (content + media) ----------
+/* ============ About ============ */
 export const ABOUT_CONTENT = {
-  tagline:
-    "From our mother’s kitchen to your table — Puerto Rican traditions, naturally.",
+  tagline: "From our mother’s kitchen to your table — Puerto Rican traditions, naturally.",
   paragraph1:
     "What began as a family initiative to support local students during the pandemic became a love letter to our heritage: sharing the flavors we grew up with.",
   paragraph2:
@@ -155,29 +109,20 @@ export const ABOUT_CONTENT = {
 };
 
 export const ABOUT_MEDIA = {
-  heroImage: "/about/hero.jpg",
-  kitchenImage: "/about/kitchen.jpg",
-  productsImage: "/about/products.jpg",
+  heroImage: "/images/about/hero.jpg",
+  kitchenImage: "/images/about/kitchen.jpg",
+  productsImage: "/images/about/products.jpg",
 };
 
-// ---------- Press videos (for /press or a grid) ----------
+/* ============ Press ============ */
 export const PRESS_VIDEOS: PressVideo[] = [
-  {
-    id: "press-1",
-    title: "Interview on Local News",
-    youtubeId: "dQw4w9WgXcQ",
-    note: "Our story and mission featuring Mama Pacha.",
-  },
-  {
-    id: "press-2",
-    title: "Cooking with Mama Pacha",
-    youtubeId: "y6120QOlsfU",
-  },
-  // Add real items here
+  { id: "press-1", title: "FOX2 segment (news feature)", youtubeId: "DJItLcqxNHI" },
+  { id: "press-2", title: "Community highlight (interview)", youtubeId: "qU1cJ3C2pB0" },
+  { id: "press-3", title: "Local TV cooking demo", youtubeId: "2K_A-7b-j3Q" },
+  { id: "press-4", title: "Telemundo STL feature", youtubeId: "NvMy-Tza6iA" },
 ];
 
-// ---------- Recipes (for /recipes) ----------
-// ---------- Recipes (for /recipes) ----------
+/* ============ Recipes ============ */
 export const RECIPES: Recipe[] = [
   {
     id: "rec-arroz-gandules",
@@ -308,13 +253,5 @@ export const RECIPES: Recipe[] = [
   },
 ];
 
-
-// ---------- Utility: Currency ----------
 export const currency = (n: number) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 2,
-  }).format(n);
-
-  
+  new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 }).format(n);

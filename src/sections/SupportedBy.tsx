@@ -1,3 +1,4 @@
+// src/sections/SupportedBy.tsx
 import React from "react";
 
 type Logo = { src: string; alt: string; href?: string };
@@ -13,7 +14,6 @@ export default function SupportedBy({
   subtitle = "Partners and organizations that lift our mission.",
   logos,
 }: Props) {
-  // Garantiza 6 elementos para un grid 3x2 parejo en sm+
   const items = (logos ?? []).slice(0, 6);
 
   return (
@@ -27,9 +27,7 @@ export default function SupportedBy({
         <div
           className={[
             "mt-10",
-            // Mobile: 2 cols; Desktop: 3 cols × 2 filas fijas
             "grid grid-cols-2 sm:grid-cols-3 sm:grid-rows-2",
-            // separaciones y centrado uniforme
             "gap-8 sm:gap-10 place-items-center",
           ].join(" ")}
         >
@@ -40,12 +38,9 @@ export default function SupportedBy({
                 alt={l.alt}
                 className={[
                   "mx-auto object-contain",
-                  // Logos grandes
                   "h-16 sm:h-20 md:h-24",
-                  // Sutil realce al hover
-                  "opacity-90 hover:opacity-100 transition-opacity",
-                  // Ayuda a mezclar fondos blancos de algunos logos
-                  "mix-blend-multiply",
+                  // Corrección de color: no mezclar con el fondo ni reducir opacidad
+                  "opacity-100 mix-blend-normal",
                 ].join(" ")}
                 loading="lazy"
                 decoding="async"
@@ -55,10 +50,7 @@ export default function SupportedBy({
             return (
               <div
                 key={i}
-                className={[
-                  // Celda con altura mínima para alinear todas las filas
-                  "w-full flex items-center justify-center",
-                ].join(" ")}
+                className="w-full flex items-center justify-center"
               >
                 {l.href ? (
                   <a
@@ -66,7 +58,7 @@ export default function SupportedBy({
                     target="_blank"
                     rel="noreferrer noopener"
                     aria-label={l.alt}
-                    className="inline-block"
+                    className="inline-block hover:opacity-100 transition-opacity"
                   >
                     {img}
                   </a>

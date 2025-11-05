@@ -1,10 +1,7 @@
 // src/sections/Testimonials.tsx
 import React, { useEffect, useRef, useState } from "react";
 
-type Review = {
-  name: string;
-  text: string;
-};
+type Review = { name: string; text: string };
 
 const REVIEWS: Review[] = [
   { name: "Elaine Schmidt", text: "I just got back from a trip to Puerto Rico, and eating Mama Pacha Sabor food brought me back! It is SOOOO good! Couldn’t recommend enough. These are my yummy leftovers 🥰" },
@@ -22,6 +19,12 @@ const REVIEWS: Review[] = [
   { name: "Maria Elisa Aguilo", text: "The food is spectacular. I love everything about it. I truly recommend it 100%." },
   { name: "Alejandra Almonte", text: "Unmatched flavor ❣️❣️❣️🫶💯" },
   { name: "Elsa’s Cleaning Company", text: "I tried the seasonings and they gave my meals a delicious flavor. They will never be missing from my kitchen again. 🫶" },
+
+  // Nuevos que enviaste:
+  { name: "Anonymous", text: "Had delicious carne and pollo empanadas yesterday! They were made day of and delivered (uncooked) to my home, which was amazing! I fried a few of each type and froze the rest. So yummy, thank you!" },
+  { name: "Natasha Nolan", text: "I tried them at the Soulard Hispanic festival and Leslie was so kind, there was absolutely love put into that food and it’s evident with every bite and every flavor! I would absolutely recommend them and hope you all give them a try!" },
+  { name: "Yasme'n Dunmars", text: "I tried them at the Soulard Hispanic festival—so flavorful and made with love. Highly recommend!" },
+  { name: "Elizabeth Rodríguez", text: "This product is a miracle. No salt, no msg, and 100% natural. Lo recomiendo." },
 ];
 
 export default function Testimonials() {
@@ -34,9 +37,9 @@ export default function Testimonials() {
     const calc = () => {
       const w = window.innerWidth;
       const perView = w >= 1024 ? 3 : w >= 640 ? 2 : 1;
-      setPages(Math.max(1, Math.ceil(REVIEWS.length / perView)));
-      // clamp page actual
-      setPage((p) => Math.min(p, Math.max(0, Math.ceil(REVIEWS.length / perView) - 1)));
+      const totalPages = Math.max(1, Math.ceil(REVIEWS.length / perView));
+      setPages(totalPages);
+      setPage((p) => Math.min(p, totalPages - 1));
     };
     calc();
     window.addEventListener("resize", calc);
@@ -56,28 +59,21 @@ export default function Testimonials() {
     const el = viewportRef.current;
     if (!el) return;
     let timer: any;
-    let visible = false;
 
     const io = new IntersectionObserver(
-      ([e]) => {
-        visible = e.isIntersecting;
-        if (visible) start();
-        else stop();
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          timer = setInterval(() => setPage((p) => (p + 1) % pages), 5000);
+        } else if (timer) {
+          clearInterval(timer);
+        }
       },
       { threshold: 0.5 }
     );
 
-    const start = () => {
-      stop();
-      timer = setInterval(() => {
-        setPage((p) => (p + 1) % pages || 0);
-      }, 5000);
-    };
-    const stop = () => timer && clearInterval(timer);
-
     io.observe(el);
     return () => {
-      stop();
+      if (timer) clearInterval(timer);
       io.disconnect();
     };
   }, [pages]);
@@ -88,16 +84,16 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="px-4 sm:px-6 py-16 sm:py-20">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-center font-serif text-3xl sm:text-4xl font-extrabold tracking-tight">
+        {/* Títulos en blanco para fondo rojo */}
+        <h2 className="text-center font-serif text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
           What Our Customers Say
         </h2>
-        <p className="mt-2 text-center text-neutral-600">
+        <p className="mt-2 text-center text-white/80">
           Real words from real people who’ve enjoyed Mama Pacha Sabor.
         </p>
 
         {/* Viewport */}
         <div className="relative mt-10">
-          {/* Carrusel */}
           <div
             ref={viewportRef}
             className="overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory"
@@ -108,53 +104,49 @@ export default function Testimonials() {
               {REVIEWS.map((r, idx) => (
                 <article
                   key={idx}
-                  className={[
-                    "snap-start shrink-0 px-2",             // gutters
-                    "w-full sm:w-1/2 lg:w-1/3",              // 1/2/3 por vista
-                  ].join(" ")}
+                  className="snap-start shrink-0 px-2 w-full sm:w-1/2 lg:w-1/3"
                 >
-                  <div className="h-full rounded-2xl bg-white/90 backdrop-blur-md ring-1 ring-black/10 shadow-sm p-6 flex flex-col">
+                  {/* Tarjeta: crema translúcida para contraste en rojo */}
+                  <div className="h-full rounded-2xl bg-white/95 ring-1 ring-black/10 shadow-sm p-6 flex flex-col">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-[#E7303A]/10 ring-1 ring-[#E7303A]/20 flex items-center justify-center select-none">
-                        <span className="font-bold text-[#E7303A]">
-                          {r.name.charAt(0)}
+                      <div className="h-10 w-10 rounded-full bg-[#e33c30]/10 ring-1 ring-[#e33c30]/25 flex items-center justify-center select-none">
+                        <span className="font-bold text-[#e33c30]">
+                          {r.name.charAt(0).toUpperCase()}
                         </span>
                       </div>
-                      <h3 className="font-semibold">{r.name}</h3>
+                      <h3 className="font-semibold text-neutral-900">{r.name}</h3>
                     </div>
 
-                    <p className="mt-4 text-neutral-800 leading-7">
-                      {r.text}
-                    </p>
+                    <p className="mt-4 text-neutral-800 leading-7">{r.text}</p>
 
                     {/* acento de marca */}
-                    <div className="mt-6 h-1 w-12 rounded-full bg-[#E7303A]/70" />
+                    <div className="mt-6 h-1 w-12 rounded-full bg-[#e33c30]/70" />
                   </div>
                 </article>
               ))}
             </div>
           </div>
 
-          {/* Controles */}
+          {/* Controles en blanco para fondo rojo */}
           <div className="mt-6 flex items-center justify-between">
             <div className="flex gap-2">
               <button
                 onClick={prev}
                 aria-label="Previous testimonials"
-                className="h-10 w-10 rounded-full border border-neutral-300 hover:bg-neutral-100 transition-colors"
+                className="h-10 w-10 rounded-full border border-white/60 text-white hover:bg-white/10 transition-colors"
               >
                 ‹
               </button>
               <button
                 onClick={next}
                 aria-label="Next testimonials"
-                className="h-10 w-10 rounded-full border border-neutral-300 hover:bg-neutral-100 transition-colors"
+                className="h-10 w-10 rounded-full border border-white/60 text-white hover:bg-white/10 transition-colors"
               >
                 ›
               </button>
             </div>
 
-            {/* Dots */}
+            {/* Dots en blanco */}
             <div className="flex items-center gap-2">
               {Array.from({ length: pages }).map((_, i) => (
                 <button
@@ -163,7 +155,7 @@ export default function Testimonials() {
                   aria-label={`Go to page ${i + 1}`}
                   className={[
                     "h-2.5 rounded-full transition-all",
-                    i === page ? "w-8 bg-[#E7303A]" : "w-3 bg-neutral-300 hover:bg-neutral-400",
+                    i === page ? "w-8 bg-white" : "w-3 bg-white/40 hover:bg-white/60",
                   ].join(" ")}
                 />
               ))}
@@ -172,7 +164,7 @@ export default function Testimonials() {
         </div>
       </div>
 
-      {/* Oculta la barra de scroll en navegadores comunes */}
+      {/* Oculta la barra de scroll  */}
       <style>{`
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
