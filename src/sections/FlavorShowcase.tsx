@@ -4,7 +4,7 @@ import React from "react";
 type Props = {
   videoId: string;              // ID o URL de YouTube
   title?: string;
-  images?: string[];            // (ignorado ahora, ya no hay decoraciones)
+  images?: string[];            // (ignorado ahora)
   pressHref?: string;           // "/press" o "#press"
 };
 
@@ -19,7 +19,7 @@ function getYouTubeId(input: string): string {
 export default function FlavorShowcase({
   videoId,
   title = "Flavor in Motion",
-  // images = [],   // ya no se usan
+  // images = [],
   pressHref = "/press",
 }: Props) {
   const id = getYouTubeId(videoId);
@@ -30,13 +30,12 @@ export default function FlavorShowcase({
         <h2 className="text-center font-serif text-3xl sm:text-4xl font-extrabold tracking-tight">
           {title}
         </h2>
-        <p className="mt-2 text-center text-neutral-600">
+        <p className="mt-2 text-center text-neutral-200 sm:text-neutral-100/90">
           A quick peek at our kitchen, spices, and tradition.
         </p>
 
-        {/* Tarjeta de video más grande */}
+        {/* Video card (bigger) */}
         <div className="relative mt-10 mx-auto max-w-6xl rounded-2xl ring-1 ring-black/10 shadow-xl bg-black overflow-hidden">
-          {/* Quitamos decoraciones flotantes y reducimos el padding para agrandar el iframe */}
           <div className="relative z-0 m-2 sm:m-4 md:m-6 rounded-xl overflow-hidden bg-black">
             <div className="aspect-video">
               <iframe
@@ -51,14 +50,14 @@ export default function FlavorShowcase({
           </div>
         </div>
 
-        {/* CTA Press */}
+        {/* CTA Press — contrast on red background */}
         <div className="mt-8 flex justify-center">
           <a
             href={pressHref}
-            className="inline-flex items-center gap-2 h-11 px-6 rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-[#E7303A] text-[#E7303A] hover:bg-[#E7303A] hover:text-white transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 h-11 px-6 rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-white text-white hover:bg-white hover:text-[#e33c30] transition-colors shadow-sm"
             aria-label="Go to Press & Interviews"
           >
-            Press & Interviews
+            See all press & request an interview
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-4">
               <path fillRule="evenodd" d="M3 10a1 1 0 011-1h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L13.586 11H4a1 1 0 01-1-1z" clipRule="evenodd" />
             </svg>

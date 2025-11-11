@@ -12,6 +12,8 @@ import Supporters from "../sections/Supporters"; // si no lo usas, puedes quitar
 import Contact from "../sections/Contact";
 import { FEATURED_OUTLETS } from "@/data/press";
 import PressCTA from "@/components/PressCTA";
+import HomeShop from "@/sections/HomeShop";
+
 
 export default function Home() {
   return (
@@ -154,37 +156,42 @@ export default function Home() {
       </section>
 
       {/* ===== Products — fondo #1cbbc7 ===== */}
-      <section className="bg-[#1cbbc7] text-white">
-        <div className="container-xl py-0">
-          <Products />
-        </div>
-      </section>
+      <HomeShop />
+
 
       {/* ===== CTA STRIP — fondo #e33c30 ===== */}
       <section className="bg-[#e33c30] text-white">
-        <div className="container-xl pb-14">
-          <div className="rounded-3xl bg-white/10 ring-1 ring-white/30 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <h4 className="font-serif text-2xl font-extrabold">Ready to taste the difference?</h4>
-              <p className="text-white/90">Shop our salt-free spices or explore merch &amp; catering.</p>
-            </div>
-            <div className="flex gap-3">
-              <a
-                href="/shop?category=spices"
-                className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-white text-[#e33c30] hover:bg-neutral-100 transition"
-              >
-                Shop Spices
-              </a>
-              <a
-                href="/shop?category=all"
-                className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-white/0 ring-1 ring-white text-white hover:bg-white/10 transition"
-              >
-                Shop Menu
-              </a>
-            </div>
-          </div>
+  <div className="container-xl py-12">
+    <div className="max-w-5xl mx-auto rounded-3xl bg-white/10 ring-1 ring-white/30 p-6 sm:p-8">
+      <div className="flex flex-col items-center text-center gap-5">
+        <div>
+          <h4 className="font-serif text-2xl sm:text-3xl font-extrabold">
+            Ready to taste the difference?
+          </h4>
+          <p className="mt-1 text-white/90">
+            Shop our salt-free spices or explore merch &amp; catering.
+          </p>
         </div>
-      </section>
+
+        <div className="flex flex-wrap justify-center gap-3">
+          <a
+            href="/shop?category=spices"
+            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-white text-[#e33c30] hover:bg-neutral-100 transition"
+          >
+            Shop Spices
+          </a>
+          <a
+            href="/shop?category=all"
+            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-white/0 ring-1 ring-white text-white hover:bg-white/10 transition"
+          >
+            Shop Menu
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* ===== SupportedBy — fondo #1cbbc7 ===== */}
       <section className="bg-[#1cbbc7] text-white">

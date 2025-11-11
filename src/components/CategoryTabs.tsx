@@ -1,58 +1,62 @@
 // src/components/CategoryTabs.tsx
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export type Category = "all" | "spices" | "merch" | "catering";
-
-const BRAND = {
-  bg: "bg-white",
-  activeBg: "bg-[#1cbcc6]",
-  activeText: "text-white",
-  ring: "ring-[#1cbcc6]/40",
-};
 
 type Props = {
   value: Category;
   onChange: (c: Category) => void;
+  /** Si true, renderiza enlaces (para /shop). Si false, renderiza botones (para Home). */
+  asLinks?: boolean;
+  /** Base href cuando asLinks = true */
+  baseHref?: string; // default: "/shop"
 };
 
-const labels: Record<Category, string> = {
-  all: "All",
-  spices: "Spices",
-  merch: "Merch",
-  catering: "Catering",
-};
+const CATS: { key: Category; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "spices", label: "Spices" },
+  { key: "merch", label: "Merch" },
+  { key: "catering", label: "Catering" },
+];
 
-export default function CategoryTabs({ value, onChange }: Props) {
-  const navigate = useNavigate();
-
-  const setCat = (c: Category) => {
-    onChange(c);
-    const qs = new URLSearchParams({ category: c });
-    navigate({ pathname: "/shop", search: qs.toString() }, { replace: false });
-  };
-
-  const base =
-    "inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold transition border";
-
+export default function CategoryTabs({
+  value,
+  onChange,
+  asLinks = true,
+  baseHref = "/shop",
+}: Props) {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-2">
-      {(Object.keys(labels) as Category[]).map((c) => {
-        const active = c === value;
+    <div className="inline-flex rounded-full bg-white/70 text-neutral-900 ring-1 ring-black/10 p-1 backdrop-blur-md">
+      {CATS.map(({ key, label }) => {
+        const isActive = value === key;
+        const cls =
+          "h-10 px-4 sm:px-5 rounded-full text-sm font-semibold transition " +
+          (isActive
+            ? "bg-[#e33c30] text-white shadow"
+            : "hover:bg-black/5 text-neutral-800");
+
+        if (asLinks) {
+          return (
+            <Link
+              key={key}
+              to={`${baseHref}?category=${key}`}
+              className={cls + " flex items-center justify-center"}
+            >
+              {label}
+            </Link>
+          );
+        }
+
+        // Modo botones: no navegamos, solo cambiamos estado en el mismo Home
         return (
           <button
-            key={c}
+            key={key}
             type="button"
-            onClick={() => setCat(c)}
-            className={[
-              base,
-              active
-                ? `${BRAND.activeBg} ${BRAND.activeText} ${BRAND.ring} ring-2 border-transparent`
-                : `border-neutral-300 text-neutral-900 hover:bg-neutral-50 ${BRAND.bg}`,
-            ].join(" ")}
-            aria-pressed={active}
+            onClick={() => onChange(key)}
+            className={cls}
           >
-            {labels[c]}
+            {label}
           </button>
         );
       })}

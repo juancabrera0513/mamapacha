@@ -8,8 +8,8 @@ type Props = {
   subtitle?: string;
   outlets: Outlet[];
   ctaHref?: string;
-  /** Ajusta el tratamiento de color de los logos */
-  theme?: "light" | "dark"; // light = fondo claro, dark = fondo oscuro
+  /** light = textos oscuros (fondo claro) | dark = textos blancos (fondo coloreado/oscuro) */
+  theme?: "light" | "dark";
 };
 
 export default function FeaturedOn({
@@ -19,27 +19,41 @@ export default function FeaturedOn({
   ctaHref = "/press",
   theme = "light",
 }: Props) {
-  // En fondo claro NO invertimos; en fondo oscuro sí convertimos a blanco
-  const logoClass =
-    theme === "dark"
-      ? "brightness-0 invert opacity-80 hover:opacity-100"
-      : "grayscale-[35%] opacity-90 hover:opacity-100 mix-blend-multiply";
+  const isDark = theme === "dark";
+
+  const titleClass = isDark ? "text-white" : "text-neutral-900";
+  const subtitleClass = isDark ? "text-white/85" : "text-neutral-600";
+
+  // Logos más grandes y nítidos, sin mezcla con el fondo
+  const logoClass = [
+    "mx-auto w-auto h-auto",
+    "max-h-16 sm:max-h-20 md:max-h-24", // ⬅️ tamaños aumentados
+    "max-w-[240px]",                   // evita estirarse demasiado en ancho
+    "object-contain",
+    "transition-opacity opacity-95 hover:opacity-100",
+    "mix-blend-normal",
+  ].join(" ");
+
+  // CTA con contraste por tema
+  const ctaClass = isDark
+    ? "inline-flex h-11 px-6 items-center justify-center rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-white text-white hover:bg-white hover:text-[#e33c30] transition-colors shadow-sm"
+    : "inline-flex h-11 px-6 items-center justify-center rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-[#e33c30] text-[#e33c30] hover:bg-[#e33c30] hover:text-white transition-colors shadow-sm";
 
   return (
     <section id="press" className="px-4 sm:px-6 py-14 sm:py-20">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="font-serif text-3xl sm:text-4xl font-extrabold tracking-tight">
+        <h2 className={`font-serif text-3xl sm:text-4xl font-extrabold tracking-tight ${titleClass}`}>
           {title}
         </h2>
-        {subtitle && <p className="mt-2 text-neutral-600">{subtitle}</p>}
+        {subtitle && <p className={`mt-2 ${subtitleClass}`}>{subtitle}</p>}
 
-        <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 items-center">
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 sm:gap-12 items-center">
           {outlets.map((o, i) => {
             const img = (
               <img
                 src={o.src}
                 alt={o.alt}
-                className={`mx-auto h-10 sm:h-12 object-contain transition ${logoClass}`}
+                className={logoClass}
                 loading="lazy"
                 decoding="async"
               />
@@ -65,10 +79,7 @@ export default function FeaturedOn({
         </div>
 
         <div className="mt-10">
-          <a
-            href={ctaHref}
-            className="inline-flex h-11 px-6 items-center justify-center rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-[#E7303A] text-[#E7303A] hover:bg-[#E7303A] hover:text-white transition-colors shadow-sm"
-          >
+          <a href={ctaHref} className={ctaClass}>
             See all press & request an interview
           </a>
         </div>
