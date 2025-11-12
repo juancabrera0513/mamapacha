@@ -1,22 +1,11 @@
 // src/pages/Shop.tsx
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
 import CategoryTabs, { Category } from "@/components/CategoryTabs";
 import ProductCardHome, { HomeProduct } from "@/components/ProductCardHome";
 import { useCart } from "@/context/CartContext";
 import { PRODUCTS, Product as CatalogProduct } from "@/data/site";
 
-const BRAND_BORDER = "border-[#1cbcc6]";
-
-// ===== URL category (default ALL) =====
-function useCategoryFromUrl(defaultCat: Category = "all"): Category {
-  const { search } = useLocation();
-  const s = new URLSearchParams(search).get("category") as Category | null;
-  if (s === "all" || s === "spices" || s === "merch" || s === "catering") return s;
-  return defaultCat;
-}
-
-// ===== Mapping HomeProduct -> CatalogProduct =====
+/* ----------------- helpers ----------------- */
 function toCatalogProduct(p: HomeProduct): CatalogProduct {
   const computed =
     typeof p.salePrice === "number"
@@ -38,9 +27,8 @@ function toCatalogProduct(p: HomeProduct): CatalogProduct {
   };
 }
 
-// ===== Helpers =====
 function isSpiceName(name: string) {
-  const n = name.toLowerCase();
+  const n = name?.toLowerCase?.() ?? "";
   return (
     n.includes("adobo") ||
     n.includes("sazón") ||
@@ -61,7 +49,7 @@ function makeSpiceCardLike(p: any): HomeProduct {
   };
 }
 
-// ===== Local data (MERCH / CATERING) =====
+/* ----------------- local merch ----------------- */
 const MERCH: HomeProduct[] = [
   {
     id: "mama-pacha-apron",
@@ -79,47 +67,108 @@ const MERCH: HomeProduct[] = [
   },
 ];
 
-const CATERING: HomeProduct[] = [
-  {
-    id: "pulled-pork-or-chicken",
-    name: "Mama Pacha Sabor Pulled Pork or Chicken",
-    image: "/products/pulled-pork-or-chicken.jpg",
-    description: "Slow-cooked flavor, perfect for bowls, tacos, or sliders.",
-  },
-  {
-    id: "empanadas-uncooked-4",
-    name:
-      "Mama Pacha Sabor Empanadas — Un-cooked (ready to bake or fry at home) — 4 per order, per filling",
-    image: "/products/empanadas-uncooked-4.jpg",
-    description: "Freshly assembled and frozen. Bake or fry at home.",
-    fromPrice: 13.0,
-    titleSizeClass: "text-sm sm:text-[15px]",
-  },
-];
+/* ----------------- catering form ----------------- */
+function CateringInquiryCard() {
+  const formRef = React.useRef<HTMLFormElement | null>(null);
 
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const subject = encodeURIComponent("Catering Inquiry — Mama Pacha Sabor");
+    const body = encodeURIComponent(
+      `Hello Mama Pacha!\n\nI'd like a catering quote.\n\n` +
+        `Name: ${fd.get("name")}\n` +
+        `Email: ${fd.get("email")}\n` +
+        `Event date: ${fd.get("date")}\n` +
+        `Guests: ${fd.get("guests")}\n\n` +
+        `Notes:\n${fd.get("notes")}\n\nThank you!`
+    );
+    window.open(`mailto:hola@mamapachasabor.com?subject=${subject}&body=${body}`, "_blank");
+    formRef.current?.reset();
+    alert("Thanks! We opened your email app with the details. We'll get back to you ASAP.");
+  };
+
+  return (
+    <div className="rounded-2xl bg-white/95 ring-1 ring-black/10 shadow-sm p-6">
+      <h3 className="text-xl font-extrabold text-neutral-900">Request a Catering Quote</h3>
+      <p className="mt-1 text-sm text-neutral-700">
+        Tell us about your event and we’ll reply with a custom menu and pricing.
+      </p>
+
+      <form ref={formRef} className="mt-4 grid gap-3" onSubmit={onSubmit}>
+        <div className="grid sm:grid-cols-2 gap-3">
+          <input
+            name="name"
+            required
+            placeholder="Your name"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none text-neutral-900 placeholder:text-neutral-500"
+          />
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="Email"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none text-neutral-900 placeholder:text-neutral-500"
+          />
+        </div>
+        <div className="grid sm:grid-cols-2 gap-3">
+          <input
+            type="date"
+            name="date"
+            placeholder="Event date"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none text-neutral-900 placeholder:text-neutral-500"
+          />
+          <input
+            name="guests"
+            placeholder="Estimated guests"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none text-neutral-900 placeholder:text-neutral-500"
+          />
+        </div>
+        <textarea
+          name="notes"
+          rows={4}
+          placeholder="Cuisine, allergies, budget, venue…"
+          className="rounded-xl border border-neutral-300 px-3 py-2 focus:border-[#e33c30] outline-none text-neutral-900 placeholder:text-neutral-500"
+        />
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="submit"
+            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-[#e33c30] text-white hover:bg-[#c72b27] transition"
+          >
+            Send request
+          </button>
+          <a
+            href="mailto:hola@mamapachasabor.com?subject=Catering%20Question"
+            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold ring-1 ring-[#e33c30] text-[#e33c30] hover:bg-white/30 transition"
+          >
+            Email us directly
+          </a>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+/* ----------------- PAGE ----------------- */
 export default function ShopPage() {
-  const urlCat = useCategoryFromUrl("all");
-  const [category, setCategory] = React.useState<Category>(urlCat);
+  // Lee una vez la categoría de la URL (si existe), pero después NO modificamos la URL.
+  const initialCat: Category = React.useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    const c = params.get("category") as Category | null;
+    return c === "all" || c === "spices" || c === "merch" || c === "catering" ? c : "all";
+  }, []);
+  const [category, setCategory] = React.useState<Category>(initialCat);
+
   const { add } = useCart();
 
-  React.useEffect(() => {
-    if (urlCat !== category) setCategory(urlCat);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [urlCat]);
-
-  // Spices primero (Sazón, Adobo, luego otros)
+  // Datos de SPICES desde PRODUCTS (Sazón/Adobo primero)
   const spiceProducts: HomeProduct[] = React.useMemo(() => {
     const primary: HomeProduct[] = [];
     const rest: HomeProduct[] = [];
 
     const sazon =
       PRODUCTS.find((p) => p.id === "sazon") ||
-      PRODUCTS.find(
-        (p) =>
-          p.name?.toLowerCase().includes("sazón") ||
-          p.name?.toLowerCase().includes("sazon")
-      );
-
+      PRODUCTS.find((p) => p.name?.toLowerCase().includes("sazón") || p.name?.toLowerCase().includes("sazon"));
     const adobo =
       PRODUCTS.find((p) => p.id === "adobo") ||
       PRODUCTS.find((p) => p.name?.toLowerCase().includes("adobo"));
@@ -129,66 +178,67 @@ export default function ShopPage() {
 
     PRODUCTS.forEach((p) => {
       const already = (sazon && p.id === sazon.id) || (adobo && p.id === adobo.id);
-      if (!already && isSpiceName(p.name ?? p.id)) {
-        rest.push(makeSpiceCardLike(p));
-      }
+      if (!already && isSpiceName(p.name ?? p.id)) rest.push(makeSpiceCardLike(p));
     });
 
     return [...primary, ...rest];
   }, []);
 
   const merchProducts: HomeProduct[] = MERCH;
-  const cateringProducts: HomeProduct[] = CATERING;
 
-  // Mezcla para "All"
-  const allProducts: HomeProduct[] = [
-    ...spiceProducts,
-    ...merchProducts,
-    ...cateringProducts,
-  ];
-
-  const currentList =
+  const list =
     category === "all"
-      ? allProducts
+      ? [...spiceProducts, ...merchProducts]
       : category === "spices"
       ? spiceProducts
       : category === "merch"
       ? merchProducts
-      : cateringProducts;
+      : []; // "catering" no muestra cards
 
   return (
     <main
-      className="relative min-h-[60svh] pt-24 sm:pt-28" // <-- ESPACIO PARA HEADER FIJO
-      style={{ paddingTop: "var(--header-h, 36px)" }} // fallback si defines --header-h global
+      className="relative min-h-[60svh]"
+      style={{ paddingTop: "var(--header-h, 36px)" }}
     >
-      {/* Fondo #41c0cc */}
+      {/* Fondo */}
       <div className="absolute inset-0 -z-10 bg-[#41c0cc]" />
 
       <div className="container-xl py-12 sm:py-16">
-        <header className="mb-8 sm:mb-10 text-center">
-          <h1 className="font-serif text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Shop
-          </h1>
-          <p className="mt-2 text-sm text-neutral-900/90">
-            Browse our <strong>All</strong>, <strong>Spices</strong>,{" "}
-            <strong>Merch</strong>, and <strong>Catering</strong> items.
-          </p>
-        </header>
+        {/* Panel translucido */}
+        <div className="rounded-3xl bg-white/10 backdrop-blur-md ring-1 ring-white/25 p-6 sm:p-8 relative">
+          {/* Título + descripción */}
+          <header className="text-center">
+            <h1 className="font-serif text-3xl sm:text-4xl font-extrabold tracking-tight text-white drop-shadow">
+              Shop
+            </h1>
+            <p className="mt-2 text-white/90 text-sm">
+              Browse our <strong>Spices</strong>, <strong>Merch</strong>, or request <strong>Catering</strong>.
+            </p>
+          </header>
 
-        <CategoryTabs value={category} onChange={setCategory} />
+          {/* Tabs como BOTONES (no enlaces, NO cambian URL) */}
+          <div className="mt-6 flex justify-center">
+            <CategoryTabs value={category} onChange={setCategory} asLinks={false} />
+          </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:gap-7 md:grid-cols-2 lg:grid-cols-3">
-          {currentList.map((p) => (
-            <ProductCardHome
-              key={p.id}
-              product={p}
-              accent="red" // botones rojos en /shop
-              onAdd={(prod) => add(toCatalogProduct(prod))}
-            />
-          ))}
+          {/* Contenido por categoría */}
+          {category === "catering" ? (
+            <div className="mt-8">
+              <CateringInquiryCard />
+            </div>
+          ) : (
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:gap-7 md:grid-cols-2 lg:grid-cols-3">
+              {list.map((p) => (
+                <ProductCardHome
+                  key={p.id}
+                  product={p}
+                  accent="red"
+                  onAdd={(prod) => add(toCatalogProduct(prod))}
+                />
+              ))}
+            </div>
+          )}
         </div>
-
-     
       </div>
     </main>
   );
