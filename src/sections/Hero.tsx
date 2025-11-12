@@ -12,6 +12,8 @@ export default function Hero() {
         "bg-[#1cbcc6]",
         "flex",
       ].join(" ")}
+      /* Descontamos SIEMPRE la altura del header (con fallback) */
+      style={{ paddingTop: "var(--header-h, 72px)" }}
     >
       {/* Fondo (imagen principal hero) */}
       <picture>
@@ -23,9 +25,8 @@ export default function Hero() {
           width={1920}
           height={1080}
           className={[
+            "hero-img", // <- usaremos CSS por aspect-ratio
             "absolute inset-0 h-full w-full object-cover select-none",
-            // Centrado en mobile; en desktop desplazamos un poco a la derecha
-            "object-center md:object-[75%_center]",
           ].join(" ")}
           loading="eager"
           fetchPriority="high"
@@ -33,15 +34,21 @@ export default function Hero() {
         />
       </picture>
 
-      {/* Scrim opcional para legibilidad */}
+      {/* Scrim suave (no cambia el look) */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/0" />
 
-      {/* Contenido (CTAs) anclado al borde inferior */}
+      {/* CTAs anclados al borde inferior, con margen adaptativo para no pisar el texto del arte */}
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 flex-1">
         <div className="h-full flex items-end">
-          <div className="w-full pb-8 sm:pb-10 md:pb-12">
+          <div
+            className="w-full"
+            style={{
+              // margen inferior adaptativo por viewport y respeta safe-area
+              paddingBottom:
+                "max(env(safe-area-inset-bottom), clamp(1.25rem, 6svh, 5rem))",
+            }}
+          >
             <div className="flex flex-wrap gap-4 justify-center sm:justify-end">
-              {/* SHOP MENU & MERCH (antes: SHOP SPICES) */}
               <a
                 href="#shop"
                 className={[
@@ -53,7 +60,6 @@ export default function Hero() {
                 Shop Menu &amp; Merch
               </a>
 
-              {/* CTA secundaria opcional */}
               <a
                 href="#contact"
                 className={[
@@ -67,6 +73,22 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      {/* Reglas específicas por aspect-ratio (centra en móviles, desplaza en pantallas anchas) */}
+      <style>{`
+        /* móvil/ventanas altas: mantenemos centro para no cortar la cara */
+        @media (max-aspect-ratio: 4/3) {
+          .hero-img { object-position: center center; }
+        }
+        /* desktop estándar 16:9: movemos un poco a la derecha (rostro a la izquierda) */
+        @media (min-aspect-ratio: 4/3) {
+          .hero-img { object-position: 70% center; }
+        }
+        /* ultrawide y/o zoom con viewport "chico": movemos un poco más */
+        @media (min-aspect-ratio: 21/9) {
+          .hero-img { object-position: 75% center; }
+        }
+      `}</style>
     </section>
   );
 }
