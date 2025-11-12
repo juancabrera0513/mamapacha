@@ -59,19 +59,20 @@ export const PRODUCTS: Product[] = [
   {
     id: "sazon",
     slug: "sazon",
-    name: "Sazón (All Natural)",
+    name: "Sazón (No Salt • No Artificial Additives)",
     description:
       "All-natural color and flavor enhancer—made to elevate your dishes, not overpower them.",
-    notes: "Annatto, coriander, garlic — clean color & flavor.",
+    notes: "Annatto, coriander, garlic — clean color & flavor. No salt, no artificial additives.",
     price: 10,
     size: "4 oz",
     image: "/shop/sazon.png",
     images: ["/shop/sazon.png", "/shop/sazon-side.png", "/shop/sazon-lifestyle.jpg"],
-    badges: ["No preservatives", "All-natural color"],
+    badges: ["No salt", "No artificial additives", "No preservatives", "All-natural color"],
     usage: ["Rice", "Stews", "Veggies", "Beans"],
     nutrition: { servings: "about 18 (1 tsp)", sodiumMg: 0, calories: 0 },
-    tags: ["blend", "color", "annatto"],
+    tags: ["blend", "color", "annatto", "no-salt", "no-additives"],
   },
+  
 ];
 
 /* ============ Social ============ */
@@ -122,7 +123,6 @@ export const PRESS_VIDEOS: PressVideo[] = [
   { id: "press-4", title: "Telemundo STL feature", youtubeId: "NvMy-Tza6iA" },
 ];
 
-/* ============ Recipes ============ */
 /* ============ Recipes (NEW ONLY, in English) ============ */
 export const RECIPES: Recipe[] = [
   {

@@ -1,4 +1,3 @@
-// src/components/Header.tsx
 import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
@@ -15,7 +14,7 @@ function IconFacebook(props: React.SVGProps<SVGSVGElement>) {
 function IconInstagram(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2a3.5 3.5 0 1 0 3.5 3.5A3.5 3.5 0 0 0 12 9.5zM18 6.4a1.1 1.1 0 1 1-1.1 1.1A1.1 1.1 0 0 1 18 6.4z"/>
+      <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A5.5 5.5 0 1 0 17.5 13 5.5 5.5 0 0 0 12 7.5zm6-1.1a1.1 1.1 0 1 1-1.1 1.1A1.1 1.1 0 0 1 18 6.4z"/>
     </svg>
   );
 }
@@ -34,19 +33,19 @@ function IconMail(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-/* Styles */
-const brandTextDark = "text-[#0b5e63]";
-const cartBadgeRed = "bg-[#E7303A]";
+/* Helpers */
+const isHttp = (href: string) => /^https?:\/\//i.test(href);
 const navPill = (active: boolean, onDark: boolean) =>
   [
     "px-3 py-1.5 rounded-full text-sm font-semibold transition-colors",
     active
-      ? `bg-white ${brandTextDark}`
+      ? onDark
+        ? "bg-white text-[#0b5e63]"
+        : "bg-neutral-100 text-neutral-900"
       : onDark
-      ? "text-neutral-100 hover:bg-white/10"
+      ? "text-white hover:bg-white/10"
       : "text-neutral-900 hover:bg-neutral-100",
   ].join(" ");
-const isHttp = (href: string) => /^https?:\/\//i.test(href);
 
 export default function Header() {
   const { count } = useCart();
@@ -81,6 +80,7 @@ export default function Header() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // Set --header-h
   useEffect(() => {
     const setVar = () => {
       const h = wrapRef.current?.offsetHeight ?? 0;
@@ -122,115 +122,107 @@ export default function Header() {
       aria-hidden={hidden}
     >
       <div ref={wrapRef} className="mx-auto max-w-6xl px-4 sm:px-6 pt-3">
-        <div
-          className={[
-            "h-14 sm:h-16 flex items-center justify-between rounded-2xl border transition-colors",
-            onDarkHero
-              ? "bg-white/25 border-white/30 text-white backdrop-blur-md supports-[backdrop-filter]:bg-white/25"
-              : "bg-white text-neutral-900 border-neutral-200 shadow-sm",
-          ].join(" ")}
-        >
-          {/* Logo con chip teal cuando el fondo es claro */}
-          <Link to="/" className="pl-3 sm:pl-4" aria-label="Go to homepage">
-            <span className={onDarkHero ? "" : "inline-flex items-center justify-center rounded-xl bg-[#41c0cc] p-1 ring-1 ring-[#1cbcc6]/40"}>
-              <img
-                src="/brand/logo.png"
-                alt="Logo"
-                width={44}
-                height={44}
-                className="h-8 w-auto sm:h-9 object-contain"
-                loading="eager"
-              />
-            </span>
+        {/* FILA: logo izq, pill der */}
+        <div className="flex items-start gap-3 sm:gap-4">
+          {/* Logo */}
+          <Link to="/" aria-label="Go to homepage" className="pt-1">
+            <img
+              src="/brand/logo.png"
+              alt="Logo"
+              className="h-14 sm:h-16 md:h-20 lg:h-16 w-auto object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+              loading="eager"
+              decoding="sync"
+            />
           </Link>
 
-          {/* Nav (todas a /page, sin Reviews) */}
-          <nav className="hidden md:flex items-center gap-2">
-            <NavLink to="/shop" className={({ isActive }) => navPill(isActive, onDarkHero)}>Shop</NavLink>
-            <NavLink to="/about" className={({ isActive }) => navPill(isActive, onDarkHero)}>Our Story</NavLink>
-            <NavLink to="/press" className={({ isActive }) => navPill(isActive, onDarkHero)}>Press</NavLink>
-            <NavLink to="/recipes" className={({ isActive }) => navPill(isActive, onDarkHero)}>Recipes</NavLink>
-            <NavLink to="/contact" className={({ isActive }) => navPill(isActive, onDarkHero)}>Contact</NavLink>
-          </nav>
-
-          {/* Social + acciones */}
-          <div className="flex items-center gap-2 pr-3 sm:pr-4">
-            <div className="hidden sm:flex items-center gap-2 mr-1">
-              {socials.map(({ key, href, Icon, label }) =>
-                isHttp(href) ? (
-                  <a key={key} href={href} target="_blank" rel="noreferrer noopener" aria-label={label} className={socialBtnClass}>
-                    <Icon className="h-4 w-4" />
-                  </a>
-                ) : (
-                  <a key={key} href={href} aria-label={label} className={socialBtnClass}>
-                    <Icon className="h-4 w-4" />
-                  </a>
-                )
-              )}
-            </div>
-
-            <Link
-              to="/#cart"
+          {/* PILL */}
+          <div className="flex-1">
+            <div
               className={[
-                "relative inline-flex items-center justify-center h-10 w-10 rounded-xl border transition",
-                onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-800 hover:bg-neutral-100",
+                "h-14 sm:h-16 flex items-center justify-between rounded-2xl border px-3 sm:px-4 transition-colors",
+                onDarkHero
+                  ? "bg-white/25 border-white/30 text-white backdrop-blur-md supports-[backdrop-filter]:bg-white/25"
+                  : "bg-white text-neutral-900 border-neutral-200 shadow-sm",
               ].join(" ")}
-              aria-label="Cart"
-              title="Cart"
             >
-              🛒
-              <span className={`absolute -top-1.5 -right-1.5 min-w-5 h-5 rounded-full ${cartBadgeRed} text-white text-[11px] font-bold grid place-items-center px-1`}>
-                {count}
-              </span>
-            </Link>
+              {/* Nav desktop */}
+              <nav className="hidden md:flex items-center gap-2">
+                <NavLink to="/shop" className={({ isActive }) => navPill(isActive, onDarkHero)}>Shop</NavLink>
+                <NavLink to="/about" className={({ isActive }) => navPill(isActive, onDarkHero)}>Our Story</NavLink>
+                <NavLink to="/press" className={({ isActive }) => navPill(isActive, onDarkHero)}>Press</NavLink>
+                <NavLink to="/recipes" className={({ isActive }) => navPill(isActive, onDarkHero)}>Recipes</NavLink>
+                <NavLink to="/contact" className={({ isActive }) => navPill(isActive, onDarkHero)}>Contact</NavLink>
+              </nav>
 
-            <button
-              className={[
-                "md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border transition",
-                onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-800 hover:bg-neutral-100",
-              ].join(" ")}
-              onClick={() => setOpen((v) => !v)}
-              aria-expanded={open}
-              aria-controls="mobile-nav"
-              aria-label="Open menu"
-            >
-              ☰
-            </button>
-          </div>
-        </div>
+              {/* Acciones -> SIEMPRE DERECHA (ml-auto) */}
+              <div className="flex items-center gap-2 ml-auto">
+                {/* Social >= sm */}
+                <div className="hidden sm:flex items-center gap-2 mr-1">
+                  {socials.map(({ key, href, Icon, label }) =>
+                    isHttp(href) ? (
+                      <a key={key} href={href} target="_blank" rel="noreferrer noopener" aria-label={label} className={socialBtnClass}>
+                        <Icon className="h-4 w-4" />
+                      </a>
+                    ) : (
+                      <a key={key} href={href} aria-label={label} className={socialBtnClass}>
+                        <Icon className="h-4 w-4" />
+                      </a>
+                    )
+                  )}
+                </div>
 
-        {/* Mobile nav */}
-        {open && (
-          <div
-            id="mobile-nav"
-            className={[
-              "md:hidden mt-2 rounded-2xl border backdrop-blur-md",
-              onDarkHero ? "bg-white/25 border-white/30 text-white supports-[backdrop-filter]:bg-white/25" : "bg-white text-neutral-900 border-neutral-200 shadow-sm",
-            ].join(" ")}
-          >
-            <div className="grid p-2">
-              <NavLink to="/shop" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Shop</NavLink>
-              <NavLink to="/about" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Our Story</NavLink>
-              <NavLink to="/press" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Press</NavLink>
-              <NavLink to="/recipes" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Recipes</NavLink>
-              <NavLink to="/contact" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Contact</NavLink>
+                {/* Cart */}
+                <Link
+                  to="/#cart"
+                  className={[
+                    "relative inline-flex items-center justify-center h-10 w-10 rounded-xl border transition",
+                    onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-800 hover:bg-neutral-100",
+                  ].join(" ")}
+                  aria-label="Cart"
+                  title="Cart"
+                >
+                  🛒
+                  <span className="absolute -top-1.5 -right-1.5 min-w-5 h-5 rounded-full bg-[#E7303A] text-white text-[11px] font-bold grid place-items-center px-1">
+                    {count}
+                  </span>
+                </Link>
 
-              <div className="mt-2 flex items-center gap-2 px-2 pb-2">
-                {socials.map(({ key, href, Icon, label }) =>
-                  isHttp(href) ? (
-                    <a key={`m-${key}`} href={href} target="_blank" rel="noreferrer noopener" aria-label={label} className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/30 hover:bg-white/10">
-                      <Icon className="h-4 w-4" />
-                    </a>
-                  ) : (
-                    <a key={`m-${key}`} href={href} aria-label={label} className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/30 hover:bg-white/10">
-                      <Icon className="h-4 w-4" />
-                    </a>
-                  )
-                )}
+                {/* Hamburger */}
+                <button
+                  className={[
+                    "md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border transition",
+                    onDarkHero ? "border-white/30 text-white hover:bg-white/10" : "border-neutral-200 text-neutral-800 hover:bg-neutral-100",
+                  ].join(" ")}
+                  onClick={() => setOpen((v) => !v)}
+                  aria-expanded={open}
+                  aria-controls="mobile-nav"
+                  aria-label="Open menu"
+                >
+                  ☰
+                </button>
               </div>
             </div>
+
+            {/* Mobile nav */}
+            {open && (
+              <div
+                id="mobile-nav"
+                className={[
+                  "md:hidden mt-2 rounded-2xl border backdrop-blur-md",
+                  onDarkHero ? "bg-white/25 border-white/30 text-white supports-[backdrop-filter]:bg-white/25" : "bg-white text-neutral-900 border-neutral-200 shadow-sm",
+                ].join(" ")}
+              >
+                <div className="grid p-2">
+                  <NavLink to="/shop" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Shop</NavLink>
+                  <NavLink to="/about" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Our Story</NavLink>
+                  <NavLink to="/press" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Press</NavLink>
+                  <NavLink to="/recipes" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Recipes</NavLink>
+                  <NavLink to="/contact" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-white/10">Contact</NavLink>
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </header>
   );

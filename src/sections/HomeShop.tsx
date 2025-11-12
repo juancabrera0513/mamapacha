@@ -28,7 +28,13 @@ function toCatalogProduct(p: HomeProduct): CatalogProduct {
 
 function isSpiceName(name: string) {
   const n = name.toLowerCase();
-  return n.includes("adobo") || n.includes("sazón") || n.includes("sazon") || n.includes("seasoning") || n.includes("spice");
+  return (
+    n.includes("adobo") ||
+    n.includes("sazón") ||
+    n.includes("sazon") ||
+    n.includes("seasoning") ||
+    n.includes("spice")
+  );
 }
 
 function makeSpiceCardLike(p: any): HomeProduct {
@@ -69,7 +75,11 @@ function CateringInquiryCard() {
     const fd = new FormData(e.currentTarget);
     const subject = encodeURIComponent("Catering Inquiry — Mama Pacha Sabor");
     const body = encodeURIComponent(
-      `Hello Mama Pacha!\n\nI'd like a catering quote.\n\nName: ${fd.get("name")}\nEmail: ${fd.get("email")}\nEvent date: ${fd.get("date")}\nGuests: ${fd.get("guests")}\nNotes:\n${fd.get("notes")}\n\nThank you!`
+      `Hello Mama Pacha!\n\nI'd like a catering quote.\n\nName: ${fd.get("name")}\nEmail: ${fd.get(
+        "email"
+      )}\nEvent date: ${fd.get("date")}\nGuests: ${fd.get("guests")}\nNotes:\n${fd.get(
+        "notes"
+      )}\n\nThank you!`
     );
     window.open(`mailto:hola@mamapachasabor.com?subject=${subject}&body=${body}`, "_blank");
     formRef.current?.reset();
@@ -77,23 +87,60 @@ function CateringInquiryCard() {
   };
 
   return (
-    <div className="rounded-2xl bg-white/95 ring-1 ring-black/10 shadow-sm p-6">
+    <div className="rounded-2xl bg-white ring-1 ring-black/10 shadow-sm p-6">
       <h3 className="text-xl font-extrabold text-neutral-900">Request a Catering Quote</h3>
-      <p className="mt-1 text-sm text-neutral-700">Tell us about your event and we’ll reply with a custom menu and pricing.</p>
+      <p className="mt-1 text-sm text-neutral-700">
+        Tell us about your event and we’ll reply with a custom menu and pricing.
+      </p>
 
       <form ref={formRef} className="mt-4 grid gap-3" onSubmit={onSubmit}>
         <div className="grid sm:grid-cols-2 gap-3">
-          <input name="name" required placeholder="Your name" className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none" />
-          <input type="email" name="email" required placeholder="Email" className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none" />
+          <input
+            name="name"
+            required
+            placeholder="Your name"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none"
+          />
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="Email"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none"
+          />
         </div>
         <div className="grid sm:grid-cols-2 gap-3">
-          <input type="date" name="date" placeholder="Event date" className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none" />
-          <input name="guests" placeholder="Estimated guests" className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none" />
+          <input
+            type="date"
+            name="date"
+            placeholder="Event date"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none"
+          />
+          <input
+            name="guests"
+            placeholder="Estimated guests"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none"
+          />
         </div>
-        <textarea name="notes" rows={4} placeholder="Cuisine, allergies, budget, venue…" className="rounded-XL border border-neutral-300 px-3 py-2 focus:border-[#e33c30] outline-none" />
+        <textarea
+          name="notes"
+          rows={4}
+          placeholder="Cuisine, allergies, budget, venue…"
+          className="rounded-xl border border-neutral-300 px-3 py-2 focus:border-[#e33c30] outline-none"
+        />
         <div className="flex flex-wrap items-center gap-3">
-          <button type="submit" className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-[#e33c30] text-white hover:bg-[#c72b27] transition">Send request</button>
-          <a href="mailto:hola@mamapachasabor.com?subject=Catering%20Question" className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold ring-1 ring-[#e33c30] text-[#e33c30] hover:bg-white/30 transition">Email us directly</a>
+          <button
+            type="submit"
+            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-[#e33c30] text-white hover:bg-[#c72b27] transition"
+          >
+            Send request
+          </button>
+          <a
+            href="mailto:hola@mamapachasabor.com?subject=Catering%20Question"
+            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold ring-1 ring-[#e33c30] text-[#e33c30] hover:bg-white/40 transition"
+          >
+            Email us directly
+          </a>
         </div>
       </form>
     </div>
@@ -102,7 +149,7 @@ function CateringInquiryCard() {
 
 /* ---------- HomeShop (sin tocar la URL) ---------- */
 export default function HomeShop() {
-  // 1) Leemos la categoría solo al montar (si viene en la URL), pero LUEGO NO MODIFICAMOS LA URL
+  // Leer categoría inicial de la URL una sola vez (no muta la URL al cambiar)
   const initialCat: Category = React.useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     const c = params.get("category") as Category | null;
@@ -118,7 +165,9 @@ export default function HomeShop() {
 
     const sazon =
       PRODUCTS.find((p) => p.id === "sazon") ||
-      PRODUCTS.find((p) => p.name?.toLowerCase().includes("sazón") || p.name?.toLowerCase().includes("sazon"));
+      PRODUCTS.find(
+        (p) => p.name?.toLowerCase().includes("sazón") || p.name?.toLowerCase().includes("sazon")
+      );
     const adobo =
       PRODUCTS.find((p) => p.id === "adobo") ||
       PRODUCTS.find((p) => p.name?.toLowerCase().includes("adobo"));
@@ -137,25 +186,36 @@ export default function HomeShop() {
   const merchProducts: HomeProduct[] = MERCH;
 
   const list =
-    category === "all" ? [...spiceProducts, ...merchProducts]
-    : category === "spices" ? spiceProducts
-    : category === "merch" ? merchProducts
-    : []; // "catering" => sin cards
+    category === "all"
+      ? [...spiceProducts, ...merchProducts]
+      : category === "spices"
+      ? spiceProducts
+      : category === "merch"
+      ? merchProducts
+      : []; // "catering" => sin cards
 
   return (
-    <section className="bg-[#1cbbc7] text-white">
+    <section className="bg-[#1cbbc7]">
       <div className="container-xl py-12 sm:py-16">
-        <div className="rounded-3xl bg-white/10 backdrop-blur-md ring-1 ring-white/25 p-5 sm:p-7">
-          <header className="text-center">
-            <h2 className="font-serif text-3xl sm:text-4xl font-extrabold">Shop</h2>
-            <p className="mt-1 text-white/90 text-sm">
-              Explore our <strong>Spices</strong>, <strong>Merch</strong>, and request <strong>Catering</strong>.
-            </p>
-          </header>
+        {/* Header separado, sobre el fondo cian */}
+        <header className="text-center text-white">
+          <h2 className="font-serif text-3xl sm:text-4xl font-extrabold drop-shadow-[0_1px_0_rgba(0,0,0,0.20)]">
+            Shop
+          </h2>
+          <p className="mt-1 text-white/90 text-sm">
+            Explore our <strong>Spices</strong>, <strong>Merch</strong>, and request{" "}
+            <strong>Catering</strong>.
+          </p>
+        </header>
 
-          {/* Tabs como BOTONES (no enlaces) y sin modificar la URL */}
-          <div className="mt-6 flex justify-center">
-            <CategoryTabs value={category} onChange={setCategory} asLinks={false} />
+        {/* Panel blanco para contraste de tabs + cards */}
+        <div className="mt-6 rounded-3xl bg-white ring-1 ring-black/10 shadow-sm p-5 sm:p-7">
+          {/* Tabs como BOTONES (no enlaces) y sin modificar la URL) */}
+          <div className="flex justify-center">
+            {/* Contenedor “píldora” para un look más claro sobre fondo blanco */}
+            <div className="rounded-full bg-neutral-50 ring-1 ring-neutral-200 px-2 py-1">
+              <CategoryTabs value={category} onChange={setCategory} asLinks={false} />
+            </div>
           </div>
 
           {category === "catering" ? (
@@ -168,7 +228,7 @@ export default function HomeShop() {
                 <ProductCardHome
                   key={p.id}
                   product={p}
-                  accent="red"
+                  accent="red" // botones rojos marca
                   onAdd={(prod) => add(toCatalogProduct(prod))}
                 />
               ))}
