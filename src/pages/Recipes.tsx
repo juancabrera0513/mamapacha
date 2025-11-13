@@ -13,9 +13,7 @@ export default function RecipesPage() {
     const term = q.trim().toLowerCase();
     if (!term) return RECIPES;
     return RECIPES.filter((r) => {
-      const haystack = [r.title, r.description, ...(r.ingredients || [])]
-        .join(" ")
-        .toLowerCase();
+      const haystack = [r.title, r.description, ...(r.ingredients || [])].join(" ").toLowerCase();
       return haystack.includes(term);
     });
   }, [q]);
@@ -27,13 +25,13 @@ export default function RecipesPage() {
 
   return (
     <main className="relative">
-      {/* Background */}
+      {/* Fondo azul/teal de marca sutil */}
       <div className="absolute inset-0 -z-10 bg-[#41c0cc]/10" aria-hidden />
 
       <section className="relative" style={{ paddingTop: "var(--header-h, 36px)" }}>
         <div className="container-xl py-12 sm:py-16">
           <header className="text-center mb-8 sm:mb-10">
-            <h1 className="font-serif text-4xl font-extrabold tracking-tight">
+            <h1 className="font-serif text-4xl font-extrabold tracking-tight text-neutral-900">
               Recipes
             </h1>
             <p className="mt-2 text-neutral-700">
@@ -49,7 +47,7 @@ export default function RecipesPage() {
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Search by title or ingredient (e.g., 'plantain', 'pigeon peas')"
-                className="w-full rounded-full border border-neutral-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1cbcc6]/50 bg-white"
+                className="w-full rounded-full border border-neutral-300 px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[#1cbcc6]/50 bg-white"
               />
             </div>
           </header>

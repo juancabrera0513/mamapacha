@@ -189,7 +189,7 @@ export default function Contact() {
                       "inline-flex h-10 items-center justify-center rounded-full px-4 text-sm font-semibold transition",
                       isPristine
                         ? "border border-neutral-200 text-neutral-300 cursor-not-allowed"
-                        : "border-2 border-[#e33c30] text-[#e33c30] hover:bg-[#e33c30] hover:text-white"
+                        : "border-2 border-[#E43C31] text-[#E43C31] hover:bg-[#E43C31] hover:text-white"
                     ].join(" ")}
                     aria-disabled={isPristine}
                     aria-label="Clear form fields"
@@ -200,7 +200,7 @@ export default function Contact() {
 
                   <button
                     type="submit"
-                    className="inline-flex h-10 items-center justify-center rounded-full bg-[#e33c30] px-5 text-sm font-semibold text-white hover:bg-[#c72b27] transition"
+                    className="inline-flex h-10 items-center justify-center rounded-full bg-[#E43C31] px-5 text-sm font-semibold text-white hover:bg-[#c72b27] transition"
                   >
                     Send message
                   </button>

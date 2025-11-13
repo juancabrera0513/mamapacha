@@ -33,7 +33,7 @@ export default function CategoryTabs({
         const cls =
           "h-10 px-4 sm:px-5 rounded-full text-sm font-semibold transition " +
           (isActive
-            ? "bg-[#e33c30] text-white shadow"
+            ? "bg-[#E43C31] text-white shadow"
             : "hover:bg-black/5 text-neutral-800");
 
         if (asLinks) {

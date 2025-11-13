@@ -5,7 +5,7 @@ export default function PoliciesPage() {
   return (
     <main className="relative">
       {/* Fondo suave en el top */}
-      <div className="absolute inset-0 -z-10 bg-[#41c0cc]/8" aria-hidden />
+      <div className="absolute inset-0 -z-10 bg-[#41C1CC]/8" aria-hidden />
 
       <section className="relative" style={{ paddingTop: "var(--header-h, 36px)" }}>
         <div className="container-xl py-12 sm:py-16">

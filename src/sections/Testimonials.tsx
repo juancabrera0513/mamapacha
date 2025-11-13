@@ -109,8 +109,8 @@ export default function Testimonials() {
                   {/* Tarjeta: crema translúcida para contraste en rojo */}
                   <div className="h-full rounded-2xl bg-white/95 ring-1 ring-black/10 shadow-sm p-6 flex flex-col">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-[#e33c30]/10 ring-1 ring-[#e33c30]/25 flex items-center justify-center select-none">
-                        <span className="font-bold text-[#e33c30]">
+                      <div className="h-10 w-10 rounded-full bg-[#E43C31]/10 ring-1 ring-[#E43C31]/25 flex items-center justify-center select-none">
+                        <span className="font-bold text-[#E43C31]">
                           {r.name.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -120,7 +120,7 @@ export default function Testimonials() {
                     <p className="mt-4 text-neutral-800 leading-7">{r.text}</p>
 
                     {/* acento de marca */}
-                    <div className="mt-6 h-1 w-12 rounded-full bg-[#e33c30]/70" />
+                    <div className="mt-6 h-1 w-12 rounded-full bg-[#E43C31]/70" />
                   </div>
                 </article>
               ))}

@@ -51,7 +51,7 @@ export default function CookiePreferences() {
                 checked={analytics}
                 onChange={(e) => setAnalytics(e.target.checked)}
               />
-              <span className="w-11 h-6 bg-neutral-200 peer-checked:bg-[#41c0cc] rounded-full relative transition">
+              <span className="w-11 h-6 bg-neutral-200 peer-checked:bg-[#41C1CC] rounded-full relative transition">
                 <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition ${analytics ? "translate-x-5" : ""}`} />
               </span>
             </label>
@@ -69,7 +69,7 @@ export default function CookiePreferences() {
                 checked={marketing}
                 onChange={(e) => setMarketing(e.target.checked)}
               />
-              <span className="w-11 h-6 bg-neutral-200 peer-checked:bg-[#41c0cc] rounded-full relative transition">
+              <span className="w-11 h-6 bg-neutral-200 peer-checked:bg-[#41C1CC] rounded-full relative transition">
                 <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition ${marketing ? "translate-x-5" : ""}`} />
               </span>
             </label>
@@ -87,7 +87,7 @@ export default function CookiePreferences() {
                 checked={functional}
                 onChange={(e) => setFunctional(e.target.checked)}
               />
-              <span className="w-11 h-6 bg-neutral-200 peer-checked:bg-[#41c0cc] rounded-full relative transition">
+              <span className="w-11 h-6 bg-neutral-200 peer-checked:bg-[#41C1CC] rounded-full relative transition">
                 <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition ${functional ? "translate-x-5" : ""}`} />
               </span>
             </label>

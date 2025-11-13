@@ -26,7 +26,7 @@ export default function ContactPage() {
   return (
     <main className="relative">
       {/* Fondo banner */}
-      <div className="absolute inset-0 -z-10 bg-[#41c0cc]/15" aria-hidden />
+      <div className="absolute inset-0 -z-10 bg-[#41C1CC]/15" aria-hidden />
 
       {/* Hero */}
       <section
@@ -34,7 +34,7 @@ export default function ContactPage() {
         style={{ paddingTop: "var(--header-h, 36px)" }}
       >
         <div className="container-xl py-10 sm:py-14">
-          <div className="rounded-3xl bg-[#41c0cc] text-white p-6 sm:p-8 flex flex-col lg:flex-row items-start gap-6 lg:items-center lg:justify-between">
+          <div className="rounded-3xl bg-[#41C1CC] text-white p-6 sm:p-8 flex flex-col lg:flex-row items-start gap-6 lg:items-center lg:justify-between">
             <div>
               <p className="uppercase tracking-[0.18em] text-sm/6 font-semibold">
                 Contact
@@ -102,7 +102,7 @@ export default function ContactPage() {
                   )}
                 </ul>
 
-                <div className="mt-6 rounded-xl bg-[#41c0cc]/10 p-4 text-sm text-neutral-800">
+                <div className="mt-6 rounded-xl bg-[#41C1CC]/10 p-4 text-sm text-neutral-800">
                   For catering requests, include date, headcount, dietary needs, and pickup/delivery.
                 </div>
               </div>

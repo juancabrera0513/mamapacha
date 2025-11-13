@@ -36,8 +36,8 @@ export default function FeaturedOn({
 
   // CTA con contraste por tema
   const ctaClass = isDark
-    ? "inline-flex h-11 px-6 items-center justify-center rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-white text-white hover:bg-white hover:text-[#e33c30] transition-colors shadow-sm"
-    : "inline-flex h-11 px-6 items-center justify-center rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-[#e33c30] text-[#e33c30] hover:bg-[#e33c30] hover:text-white transition-colors shadow-sm";
+    ? "inline-flex h-11 px-6 items-center justify-center rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-white text-white hover:bg-white hover:text-[#E43C31] transition-colors shadow-sm"
+    : "inline-flex h-11 px-6 items-center justify-center rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-[#E43C31] text-[#E43C31] hover:bg-[#E43C31] hover:text-white transition-colors shadow-sm";
 
   return (
     <section id="press" className="px-4 sm:px-6 py-14 sm:py-20">

@@ -54,7 +54,7 @@ export default function FlavorShowcase({
         <div className="mt-8 flex justify-center">
           <a
             href={pressHref}
-            className="inline-flex items-center gap-2 h-11 px-6 rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-white text-white hover:bg-white hover:text-[#e33c30] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 h-11 px-6 rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-white text-white hover:bg-white hover:text-[#E43C31] transition-colors shadow-sm"
             aria-label="Go to Press & Interviews"
           >
             See all press & request an interview

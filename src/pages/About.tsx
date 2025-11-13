@@ -8,7 +8,7 @@ export default function AboutPage() {
     <main className="relative">
       {/* ===== HERO ===== */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[#41c0cc]" />
+        <div className="absolute inset-0 -z-10 bg-[#41C1CC]" />
         <div className="relative container-xl py-16 sm:py-20">
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div className="space-y-4 text-white">
@@ -164,7 +164,7 @@ export default function AboutPage() {
       {/* ===== CTA STRIP ===== */}
       <section className="relative">
         <div className="container-xl pb-14">
-          <div className="rounded-3xl bg-[#41c0cc] text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="rounded-3xl bg-[#41C1CC] text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <h3 className="font-serif text-2xl font-extrabold">
                 Ready to taste the difference?

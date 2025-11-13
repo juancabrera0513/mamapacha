@@ -21,8 +21,8 @@ export default function Home() {
       {/* ===== HERO ===== */}
       <Hero />
 
-      {/* ===== Inspiration — fondo #e33c30 ===== */}
-      <section className="bg-[#e33c30] text-white">
+      {/* ===== Inspiration — fondo #E43C31 ===== */}
+      <section className="bg-[#E43C31] text-white">
         <div className="container-xl py-0">
           <Inspiration />
         </div>
@@ -56,8 +56,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== ABOUT — BRAND PROMISE — fondo #e33c30 ===== */}
-      <section className="bg-[#e33c30] text-white">
+      {/* ===== ABOUT — BRAND PROMISE — fondo #E43C31 ===== */}
+      <section className="bg-[#E43C31] text-white">
         <div className="container-xl py-16 sm:py-20">
           <div className="grid gap-10 md:grid-cols-[1.15fr,0.85fr] items-center">
             <div className="space-y-4">
@@ -148,8 +148,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== FlavorShowcase — fondo #e33c30 ===== */}
-      <section className="bg-[#e33c30] text-white">
+      {/* ===== FlavorShowcase — fondo #E43C31 ===== */}
+      <section className="bg-[#E43C31] text-white">
         <div className="container-xl py-0">
           <FlavorShowcase videoId="r2tUR5W-WtQ" />
         </div>
@@ -159,8 +159,8 @@ export default function Home() {
       <HomeShop />
 
 
-      {/* ===== CTA STRIP — fondo #e33c30 ===== */}
-      <section className="bg-[#e33c30] text-white">
+      {/* ===== CTA STRIP — fondo #E43C31 ===== */}
+      <section className="bg-[#E43C31] text-white">
   <div className="container-xl py-12">
     <div className="max-w-5xl mx-auto rounded-3xl bg-white/10 ring-1 ring-white/30 p-6 sm:p-8">
       <div className="flex flex-col items-center text-center gap-5">
@@ -176,7 +176,7 @@ export default function Home() {
         <div className="flex flex-wrap justify-center gap-3">
           <a
             href="/shop?category=spices"
-            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-white text-[#e33c30] hover:bg-neutral-100 transition"
+            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-white text-[#E43C31] hover:bg-neutral-100 transition"
           >
             Shop Spices
           </a>
@@ -209,8 +209,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Testimonials — fondo #e33c30 ===== */}
-      <section className="bg-[#e33c30] text-white">
+      {/* ===== Testimonials — fondo #E43C31 ===== */}
+      <section className="bg-[#E43C31] text-white">
         <div className="container-xl py-0">
           <Testimonials />
         </div>
@@ -229,8 +229,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Contact — fondo #e33c30 ===== */}
-      <section className="bg-[#e33c30] text-white">
+      {/* ===== Contact — fondo #E43C31 ===== */}
+      <section className="bg-[#E43C31] text-white">
         <div className="container-xl py-0">
           <Contact />
         </div>

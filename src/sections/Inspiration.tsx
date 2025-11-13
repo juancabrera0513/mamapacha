@@ -6,7 +6,7 @@ export default function Inspiration() {
   return (
     <section id="inspiration" className="relative">
       {/* Fondo sólido de marca */}
-      <div className="absolute inset-0 -z-10 bg-[#e33c30]" />
+      <div className="absolute inset-0 -z-10 bg-[#E43C31]" />
 
       <div className="px-4 sm:px-6 py-14 sm:py-16 max-w-6xl mx-auto">
         {/* Card principal (blanca) */}
@@ -14,7 +14,7 @@ export default function Inspiration() {
           <div className="grid md:grid-cols-2 gap-0">
             {/* Columna de TEXTO */}
             <div className="p-6 sm:p-8 flex flex-col">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#e33c30]/30 bg-[#e33c30]/10 px-3 py-1 text-xs font-semibold tracking-wider text-[#e33c30]">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#E43C31]/30 bg-[#E43C31]/10 px-3 py-1 text-xs font-semibold tracking-wider text-[#E43C31]">
                 OUR ROOTS
               </div>
 
@@ -22,7 +22,7 @@ export default function Inspiration() {
                 Meet our inspiration{" "}
                 <span className="relative inline-block font-extrabold">
                   Mama Pacha
-                  <span className="absolute left-0 -bottom-1 h-2 w-full bg-[#e33c30]/20 rounded" />
+                  <span className="absolute left-0 -bottom-1 h-2 w-full bg-[#E43C31]/20 rounded" />
                 </span>
               </h2>
 
@@ -42,7 +42,7 @@ export default function Inspiration() {
               <div className="pt-6">
                 <Link
                   to="/about"
-                  className="inline-flex h-11 px-6 items-center justify-center rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-[#e33c30] text-[#e33c30] hover:bg-[#e33c30] hover:text-white transition-colors shadow-sm"
+                  className="inline-flex h-11 px-6 items-center justify-center rounded-full text-sm sm:text-base font-bold tracking-wider border-2 border-[#E43C31] text-[#E43C31] hover:bg-[#E43C31] hover:text-white transition-colors shadow-sm"
                 >
                   Our Story
                 </Link>

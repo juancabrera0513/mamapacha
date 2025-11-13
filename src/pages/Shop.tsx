@@ -101,14 +101,14 @@ function CateringInquiryCard() {
             name="name"
             required
             placeholder="Your name"
-            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none text-neutral-900 placeholder:text-neutral-500"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#E43C31] outline-none text-neutral-900 placeholder:text-neutral-500"
           />
           <input
             type="email"
             name="email"
             required
             placeholder="Email"
-            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none text-neutral-900 placeholder:text-neutral-500"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#E43C31] outline-none text-neutral-900 placeholder:text-neutral-500"
           />
         </div>
         <div className="grid sm:grid-cols-2 gap-3">
@@ -116,30 +116,30 @@ function CateringInquiryCard() {
             type="date"
             name="date"
             placeholder="Event date"
-            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none text-neutral-900 placeholder:text-neutral-500"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#E43C31] outline-none text-neutral-900 placeholder:text-neutral-500"
           />
           <input
             name="guests"
             placeholder="Estimated guests"
-            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#e33c30] outline-none text-neutral-900 placeholder:text-neutral-500"
+            className="h-11 rounded-xl border border-neutral-300 px-3 focus:border-[#E43C31] outline-none text-neutral-900 placeholder:text-neutral-500"
           />
         </div>
         <textarea
           name="notes"
           rows={4}
           placeholder="Cuisine, allergies, budget, venue…"
-          className="rounded-xl border border-neutral-300 px-3 py-2 focus:border-[#e33c30] outline-none text-neutral-900 placeholder:text-neutral-500"
+          className="rounded-xl border border-neutral-300 px-3 py-2 focus:border-[#E43C31] outline-none text-neutral-900 placeholder:text-neutral-500"
         />
         <div className="flex flex-wrap items-center gap-3">
           <button
             type="submit"
-            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-[#e33c30] text-white hover:bg-[#c72b27] transition"
+            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-[#E43C31] text-white hover:bg-[#c72b27] transition"
           >
             Send request
           </button>
           <a
             href="mailto:hola@mamapachasabor.com?subject=Catering%20Question"
-            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold ring-1 ring-[#e33c30] text-[#e33c30] hover:bg-white/30 transition"
+            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold ring-1 ring-[#E43C31] text-[#E43C31] hover:bg-white/30 transition"
           >
             Email us directly
           </a>
@@ -201,7 +201,7 @@ export default function ShopPage() {
       style={{ paddingTop: "var(--header-h, 36px)" }}
     >
       {/* Fondo */}
-      <div className="absolute inset-0 -z-10 bg-[#41c0cc]" />
+      <div className="absolute inset-0 -z-10 bg-[#41C1CC]" />
 
       <div className="container-xl py-12 sm:py-16">
         {/* Panel translucido */}
