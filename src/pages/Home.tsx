@@ -1,25 +1,40 @@
 // src/pages/Home.tsx
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Hero from "../sections/Hero";
 import Inspiration from "../sections/Inspiration";
 import FlavorShowcase from "../sections/FlavorShowcase";
-import Products from "../sections/Products";
 import SupportedBy from "../sections/SupportedBy";
 import Testimonials from "../sections/Testimonials";
 import FeaturedOn from "../sections/FeaturedOn";
-import Supporters from "../sections/Supporters"; // si no lo usas, puedes quitarlo
 import Contact from "../sections/Contact";
+import HomeShop from "@/sections/HomeShop";
 import { FEATURED_OUTLETS } from "@/data/press";
 import PressCTA from "@/components/PressCTA";
-import HomeShop from "@/sections/HomeShop";
-
 
 export default function Home() {
   return (
     <>
       {/* ===== HERO ===== */}
       <Hero />
+
+      {/* ===== BANNER FULL-WIDTH CLICKEABLE -> /shop ===== */}
+      <section className="relative bg-[#1cbbc7]">
+        <Link to="/shop" className="block group">
+          {/* La imagen se ve COMPLETA (sin recorte) */}
+          <img
+            src="/images/fondo.webp" // asegúrate de que este path sea correcto
+            alt="Shop Mama Pacha Sabor"
+            className="w-full h-auto object-contain block"
+            loading="lazy"
+          />
+
+          {/* Overlay suave + CTA centrado */}
+          <div className="pointer-events-none absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+
+        </Link>
+      </section>
 
       {/* ===== Inspiration — fondo #E43C31 ===== */}
       <section className="bg-[#E43C31] text-white">
@@ -155,43 +170,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Products — fondo #1cbbc7 ===== */}
+      {/* ===== Products / Shop — fondo #1cbbc7 (HomeShop) ===== */}
       <HomeShop />
-
 
       {/* ===== CTA STRIP — fondo #E43C31 ===== */}
       <section className="bg-[#E43C31] text-white">
-  <div className="container-xl py-12">
-    <div className="max-w-5xl mx-auto rounded-3xl bg-white/10 ring-1 ring-white/30 p-6 sm:p-8">
-      <div className="flex flex-col items-center text-center gap-5">
-        <div>
-          <h4 className="font-serif text-2xl sm:text-3xl font-extrabold">
-            Ready to taste the difference?
-          </h4>
-          <p className="mt-1 text-white/90">
-            Shop our salt-free spices or explore merch &amp; catering.
-          </p>
-        </div>
+        <div className="container-xl py-12">
+          <div className="max-w-5xl mx-auto rounded-3xl bg-white/10 ring-1 ring-white/30 p-6 sm:p-8">
+            <div className="flex flex-col items-center text-center gap-5">
+              <div>
+                <h4 className="font-serif text-2xl sm:text-3xl font-extrabold">
+                  Ready to taste the difference?
+                </h4>
+                <p className="mt-1 text-white/90">
+                  Shop our salt-free spices or explore merch &amp; catering.
+                </p>
+              </div>
 
-        <div className="flex flex-wrap justify-center gap-3">
-          <a
-            href="/shop?category=spices"
-            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-white text-[#E43C31] hover:bg-neutral-100 transition"
-          >
-            Shop Spices
-          </a>
-          <a
-            href="/shop?category=all"
-            className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-white/0 ring-1 ring-white text-white hover:bg-white/10 transition"
-          >
-            Shop Menu
-          </a>
+              <div className="flex flex-wrap justify-center gap-3">
+                <a
+                  href="/shop?category=spices"
+                  className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-white text-[#E43C31] hover:bg-neutral-100 transition"
+                >
+                  Shop Spices
+                </a>
+                <a
+                  href="/shop?category=all"
+                  className="inline-flex h-11 px-5 items-center justify-center rounded-full text-sm font-semibold bg-white/0 ring-1 ring-white text-white hover:bg-white/10 transition"
+                >
+                  Shop Menu
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+      </section>
 
       {/* ===== SupportedBy — fondo #1cbbc7 ===== */}
       <section className="bg-[#1cbbc7] text-white">

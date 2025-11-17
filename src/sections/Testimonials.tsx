@@ -24,7 +24,7 @@ const REVIEWS: Review[] = [
   { name: "Anonymous", text: "Had delicious carne and pollo empanadas yesterday! They were made day of and delivered (uncooked) to my home, which was amazing! I fried a few of each type and froze the rest. So yummy, thank you!" },
   { name: "Natasha Nolan", text: "I tried them at the Soulard Hispanic festival and Leslie was so kind, there was absolutely love put into that food and it’s evident with every bite and every flavor! I would absolutely recommend them and hope you all give them a try!" },
   { name: "Yasme'n Dunmars", text: "I tried them at the Soulard Hispanic festival—so flavorful and made with love. Highly recommend!" },
-  { name: "Elizabeth Rodríguez", text: "This product is a miracle. No salt, no msg, and 100% natural. Lo recomiendo." },
+  { name: "Elizabeth Rodríguez", text: "This product is a miracle. No salt added, no msg, and 100% natural. Lo recomiendo." },
 ];
 
 export default function Testimonials() {

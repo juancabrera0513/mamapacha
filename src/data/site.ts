@@ -43,9 +43,9 @@ export const PRODUCTS: Product[] = [
   {
     id: "adobo",
     slug: "adobo",
-    name: "Adobo (No Salt)",
+    name: "Adobo (No Salt Added)",
     description:
-      "Puerto Rican–inspired spice blend. No salt, no preservatives—pure flavor for everyday cooking.",
+      "Puerto Rican–inspired spice blend. No salt Added, no preservatives—pure flavor for everyday cooking.",
     notes: "Garlic-forward, oregano, citrus.",
     price: 10,
     size: "4 oz",
@@ -59,15 +59,15 @@ export const PRODUCTS: Product[] = [
   {
     id: "sazon",
     slug: "sazon",
-    name: "Sazón (No Salt • No Artificial Additives)",
+    name: "Sazón (No Salt Added • No Artificial Additives)",
     description:
       "All-natural color and flavor enhancer—made to elevate your dishes, not overpower them.",
-    notes: "Annatto, coriander, garlic — clean color & flavor. No salt, no artificial additives.",
+    notes: "Annatto, coriander, garlic — clean color & flavor. No salt added, no artificial additives.",
     price: 10,
     size: "4 oz",
     image: "/shop/sazon.png",
     images: ["/shop/sazon.png", "/shop/sazon-side.png", "/shop/sazon-lifestyle.jpg"],
-    badges: ["No salt", "No artificial additives", "No preservatives", "All-natural color"],
+    badges: ["No salt added", "No artificial additives", "No preservatives", "All-natural color"],
     usage: ["Rice", "Stews", "Veggies", "Beans"],
     nutrition: { servings: "about 18 (1 tsp)", sodiumMg: 0, calories: 0 },
     tags: ["blend", "color", "annatto", "no-salt", "no-additives"],
@@ -129,13 +129,13 @@ export const RECIPES: Recipe[] = [
     id: "rec-salad-dressing",
     title: "Simple Salad Dressing",
     image: "/recipes/salad-dressing.jpg",
-    description: "Quick sweet–tangy dressing balanced with Mama Pacha Sabor Adobo (no salt).",
+    description: "Quick sweet–tangy dressing balanced with Mama Pacha Sabor Adobo (no salt added).",
     ingredients: [
       "1/4 tsp lemon juice",
       "1/4 tsp vinegar",
       "1/4 tsp oil (your preference)",
       "1 tbsp honey or sugar",
-      "1/4 tsp Mama Pacha Sabor Adobo (no salt)",
+      "1/4 tsp Mama Pacha Sabor Adobo (no salt added)",
       "Salt and black pepper to taste",
     ],
     steps: [

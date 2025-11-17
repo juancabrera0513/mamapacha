@@ -2,8 +2,8 @@
     {
       "id": "adobo",
       "slug": "adobo",
-      "name": "Adobo (No Salt)",
-      "description": "Puerto Rican–inspired spice blend. No salt, no preservatives—pure flavor for everyday cooking.",
+      "name": "Adobo (No Salt Added)",
+      "description": "Puerto Rican–inspired spice blend. No salt added, no preservatives—pure flavor for everyday cooking.",
       "notes": "Garlic-forward, oregano, citrus.",
       "price": 10,
       "size": "4 oz",
@@ -18,7 +18,7 @@
     {
       "id": "sazon",
       "slug": "sazon",
-      "name": "Sazón (No Salt • No Artificial Additives)",   
+      "name": "Sazón (No Salt Added • No Artificial Additives)",   
       "description": "All-natural color and flavor enhancer—made to elevate your dishes, not overpower them.",
       "notes": "Annatto, coriander, garlic — clean color & flavor.",
       "price": 10,
