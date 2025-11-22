@@ -166,7 +166,7 @@ export default function Home() {
       {/* ===== FlavorShowcase — fondo #E43C31 ===== */}
       <section className="bg-[#E43C31] text-white">
         <div className="container-xl py-0">
-          <FlavorShowcase videoId="r2tUR5W-WtQ" />
+          <FlavorShowcase videoId="DJItLcqxNHI" />
         </div>
       </section>
 

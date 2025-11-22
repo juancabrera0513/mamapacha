@@ -4,7 +4,7 @@ import YouTubeModal from "@/components/YouTubeModal";
 import PressCTA from "@/components/PressCTA";
 
 const VIDEOS = [
-  { title: "Mama Pacha en TV – Segment 1", url: "https://www.youtube.com/embed/DJItLcqxNHI?si=0DOglryCHnd70ALb", note: "YouTube • Featured segment" },
+  { title: "Mama Pacha en TV – Segment 1", url: "https://www.youtube.com/embed/r2tUR5W-WtQ", note: "YouTube • Featured segment" },
   { title: "Mama Pacha en TV – Segment 2", url: "https://www.youtube.com/embed/qU1cJ3C2pB0?si=yDVL-7yxgd6pYOZ7", note: "YouTube • Interview" },
   { title: "Mama Pacha en TV – Segment 3", url: "https://www.youtube.com/embed/2K_A-7b-j3Q?si=BkjC3IrL92lhAb-_", note: "YouTube • Feature clip" },
   { title: "Mama Pacha en TV – Segment 4", url: "https://www.youtube.com/embed/NvMy-Tza6iA?si=AlVsL_xVqCMhobec", note: "YouTube • Community story" },
