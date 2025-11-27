@@ -3,118 +3,55 @@
 @tailwind utilities;
 
 /* =========================
-   Brand fonts (opcional)
-   ========================= */
-/* Asegúrate de tener estos archivos en public/fonts/ */
-@font-face {
-  font-family: "AlLePorsche";
-  src: url("/fonts/AlLePorsche.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* =========================
    Global overflow fixes
    ========================= */
-html,
-body,
-#root {
+html, body, #root {
   max-width: 100%;
   overflow-x: hidden;
 }
-
 @supports (overflow: clip) {
-  body {
-    overflow-x: clip;
-  }
+  body { overflow-x: clip; }
 }
-
 /* Evitar que medios empujen el layout */
-iframe,
-video,
-img {
-  max-width: 100%;
-}
+iframe, video, img { max-width: 100%; }
 
 /* =========================
    Tokens / helpers
    ========================= */
 :root {
   --radius: 16px;
-
-  /* Brand colors (por si algún día los usas en CSS puro) */
-  --mp-teal: #41c1cc;
-  --mp-red: #e43c31;
 }
 
-/* Tipografía base usando las fuentes de marca */
-@layer base {
-  html,
-  body {
-    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
-    color: #111827; /* similar a neutral-900 */
-    background-color: #ffffff;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: "AlLePorsche", "Poppins", system-ui, -apple-system,
-      BlinkMacSystemFont, "Segoe UI", sans-serif;
-    letter-spacing: 0.02em;
-  }
-
-  h5,
-  h6 {
-    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
-    font-weight: 700;
-  }
+/* Container helper */
+.container-xl {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
 
-/* =========================
-   Component layer (btn, cards, etc.)
-   ========================= */
-@layer components {
-  /* Container helper */
-  .container-xl {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  /* Buttons */
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-semibold transition shadow-soft;
-  }
-
-  .btn-primary {
-    /* Usa utilities válidas: bg-primary está definida en el theme */
-    @apply bg-primary text-white hover:opacity-90 active:opacity-85;
-  }
-
-  .btn-outline {
-    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
-  }
-
-  /* Cards */
-  .card {
-    @apply bg-white rounded-2xl shadow-soft;
-  }
+/* Buttons */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-semibold transition shadow-soft;
+}
+.btn-primary {
+  @apply bg-primary text-white hover:opacity-90 active:opacity-85;
+}
+.btn-outline {
+  @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
 }
 
-/* Soft shadow (sin plugin extra) */
+/* Cards */
+.card { @apply bg-white rounded-2xl shadow-soft; }
+
+/* Soft shadow (si no tienes un plugin de sombras) */
 .shadow-soft {
   box-shadow:
-    0 6px 16px -6px rgba(0, 0, 0, 0.15),
-    0 2px 6px -2px rgba(0, 0, 0, 0.1);
+    0 6px 16px -6px rgba(0,0,0,.15),
+    0 2px 6px -2px rgba(0,0,0,.1);
+}
+
+body {
+  background-image: url('/images/background.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
