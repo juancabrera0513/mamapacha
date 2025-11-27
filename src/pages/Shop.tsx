@@ -19,6 +19,7 @@ function toCatalogProduct(p: HomeProduct): CatalogProduct {
 
   return {
     id: p.id,
+    slug: p.slug,              // 👈 AÑADIDO
     name: p.name,
     description: p.description,
     price: computed,

@@ -52,6 +52,7 @@ export default function Products() {
   const spiceToHome = (p: any): HomeProduct => ({
     id: p.id,
     name: p.name,
+    slug: p.slug, 
     image: p.image,
     description: p.description,
     size: p.size,

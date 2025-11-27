@@ -5,86 +5,99 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mama Pacha Spices &amp; Catering</title>
-    <meta name="description" content="Mama Pacha Sabor brings Puerto Rican flavors from our mother’s kitchen to your table — preservative-free, salt-free spice blends and traditional catering." />
+    <meta
+      name="description"
+      content="Mama Pacha Sabor brings Puerto Rican flavors from our mother’s kitchen to your table — preservative-free, salt-free spice blends and traditional catering."
+    />
     <meta name="theme-color" content="#E7303A" />
 
     <!-- ===== Canonical ===== -->
     <link rel="canonical" href="https://www.mamapachasabor.com/" />
 
     <!-- ===== Favicons ===== -->
-    <link rel="icon" href="https://images.squarespace-cdn.com/content/v1/66918196e0f8ef08219905b0/a8c4c1e4-4998-4440-9e22-594581afbddf/favicon.ico" />
-    <!-- (Opcional) agregar apple-touch-icon si lo tienes -->
-    <!-- <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"> -->
+    <link
+      rel="icon"
+      href="https://images.squarespace-cdn.com/content/v1/66918196e0f8ef08219905b0/a8c4c1e4-4998-4440-9e22-594581afbddf/favicon.ico"
+    />
 
-    <!-- ===== Preconnect / Fonts ===== -->
+    <!-- ===== Preconnect / Fonts (Poppins) ===== -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- ===== CSS principal ===== -->
     <link rel="stylesheet" href="/src/index.css" />
 
     <!-- ===== Open Graph / Social ===== -->
     <meta property="og:title" content="Mama Pacha Spices &amp; Catering" />
-    <meta property="og:description" content="From our mother’s kitchen to your table. Preservative-free, salt-free blends and Puerto Rican catering." />
+    <meta
+      property="og:description"
+      content="From our mother’s kitchen to your table. Preservative-free, salt-free blends and Puerto Rican catering."
+    />
     <meta property="og:url" content="https://www.mamapachasabor.com/" />
     <meta property="og:type" content="website" />
-    <!-- Si tienes una imagen social real, ponla aquí -->
     <meta property="og:image" content="/brand/og-cover.jpg" />
     <meta property="og:image:alt" content="Mama Pacha Sabor — Spices & Catering" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Mama Pacha Spices &amp; Catering" />
-    <meta name="twitter:description" content="From our mother’s kitchen to your table. Preservative-free, salt-free blends and Puerto Rican catering." />
+    <meta
+      name="twitter:description"
+      content="From our mother’s kitchen to your table. Preservative-free, salt-free blends and Puerto Rican catering."
+    />
     <meta name="twitter:image" content="/brand/og-cover.jpg" />
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
     <!-- ===== JSON-LD (Organization) ===== -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Mama Pacha Sabor",
-      "url": "https://www.mamapachasabor.com/",
-      "sameAs": [
-        "https://www.facebook.com/mamapachasabor",
-        "https://www.instagram.com/mamapachasabor/",
-        "https://www.tiktok.com/@mamapachasabor"
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Mama Pacha Sabor",
+        "url": "https://www.mamapachasabor.com/",
+        "sameAs": [
+          "https://www.facebook.com/mamapachasabor",
+          "https://www.instagram.com/mamapachasabor/",
+          "https://www.tiktok.com/@mamapachasabor"
+        ]
+      }
     </script>
 
     <!-- ===== Consent Mode: default denied (se actualiza con el banner) ===== -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
-      gtag('consent', 'default', {
-        ad_storage: 'denied',
-        analytics_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied'
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
       });
     </script>
 
-    <!-- ===== Google Analytics (ejemplo) APARCADO =====
-      Cambia G-XXXX por tu ID real. Esto NO carga hasta aceptar "analytics".
-      Nuestro CookieConsent luego lo activará transfiriéndolo a <script> real.
-    -->
+    <!-- ===== Google Analytics (APARCADO, solo se activa con consentimiento) ===== -->
     <script type="text/plain" data-category="analytics">
-      (function(){
-        var s=document.createElement('script');
-        s.async=1; s.src='https://www.googletagmanager.com/gtag/js?id=G-XXXX';
+      (function () {
+        var s = document.createElement("script");
+        s.async = 1;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXX";
         document.head.appendChild(s);
         window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
+        function gtag() {
+          dataLayer.push(arguments);
+        }
         window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', 'G-XXXX', { anonymize_ip: true });
+        gtag("js", new Date());
+        gtag("config", "G-XXXX", { anonymize_ip: true });
       })();
     </script>
 
-    <!-- ===== Meta/Facebook Pixel (opcional) APARCADO (marketing) ===== -->
+    <!-- ===== Meta/Facebook Pixel (opcional, marketing) ===== -->
     <!--
     <script type="text/plain" data-category="marketing">
       !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -96,7 +109,7 @@
     </script>
     -->
 
-    <!-- ===== TikTok Pixel (opcional) APARCADO (marketing) ===== -->
+    <!-- ===== TikTok Pixel (opcional, marketing) ===== -->
     <!--
     <script type="text/plain" data-category="marketing">
       !function (w, d, t) {
@@ -120,10 +133,18 @@
     <!-- ===== NoScript: fallback mínimo ===== -->
     <noscript>
       <style>
-        .no-js { display:block; padding:1rem; background:#fee; color:#900; font:14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial }
+        .no-js {
+          display: block;
+          padding: 1rem;
+          background: #fee;
+          color: #900;
+          font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue",
+            Arial;
+        }
       </style>
       <div class="no-js">
-        JavaScript is required to use this site. Please enable it in your browser settings.
+        JavaScript is required to use this site. Please enable it in your browser
+        settings.
       </div>
     </noscript>
   </body>
