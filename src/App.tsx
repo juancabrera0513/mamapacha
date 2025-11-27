@@ -10,6 +10,9 @@ import Shop from "@/pages/Shop";
 import ProductDetail from "@/pages/ProductDetail";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import CheckoutPage from "@/pages/CheckoutPage";
+import OrderSuccess from "@/pages/OrderSuccess";
+
 
 const Press = React.lazy(() =>
   import("@/pages/Press").catch(() => ({
@@ -91,8 +94,11 @@ export default function App() {
               <Route path="/press" element={<Press />} />
               <Route path="/recipes" element={<Recipes />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/policies" element={<Policies />} />
               <Route path="/cookies" element={<Cookies />} />
+              <Route path="/order-success" element={<OrderSuccess />} />
+
 
               <Route path="/home" element={<Navigate to="/" replace />} />
               <Route path="*" element={<NotFound />} />

@@ -1,34 +1,240 @@
 [
-    {
-      "id": "adobo",
-      "slug": "adobo",
-      "name": "Adobo (No Salt Added)",
-      "description": "Puerto Rican–inspired spice blend. No salt added, no preservatives—pure flavor for everyday cooking.",
-      "notes": "Garlic-forward, oregano, citrus.",
-      "price": 10,
-      "size": "4 oz",
-      "image": "/shop/adobo.png",
-      "images": ["/shop/adobo.png", "/shop/adobo-side.png"],
-      "badges": ["Salt-free", "No preservatives"],
-      "badge": "Best Seller",
-      "usage": ["Chicken", "Pork", "Veggies", "Soups"],
-      "nutrition": { "servings": "about 18 (1 tsp)", "sodiumMg": 0, "calories": 0 },
-      "tags": ["blend", "salt-free", "garlic"]
-    },
-    {
-      "id": "sazon",
-      "slug": "sazon",
-      "name": "Sazón (No Salt Added • No Artificial Additives)",   
-      "description": "All-natural color and flavor enhancer—made to elevate your dishes, not overpower them.",
-      "notes": "Annatto, coriander, garlic — clean color & flavor.",
-      "price": 10,
-      "size": "4 oz",
-      "image": "/shop/sazon.png",
-      "images": ["/shop/sazon.png", "/shop/sazon-side.png"],
-      "badges": ["No preservatives", "All-natural color"],
-      "usage": ["Rice", "Stews", "Veggies", "Beans"],
-      "nutrition": { "servings": "about 18 (1 tsp)", "sodiumMg": 0, "calories": 0 },
-      "tags": ["blend", "color", "annatto"]
+  {
+    "id": "adobo",
+    "slug": "adobo",
+    "name": "Mama Pacha Salt-Free Adobo 3 oz Bag",
+    "description": "Embrace the rich culinary heritage of Latin cuisine with every sprinkle of Mama Pacha Adobo. Crafted without preservatives or added salt and packed in an eco-friendly, recyclable, and refillable bag for the purest flavor.",
+    "notes": "Garlic-forward, herbs, warm spices.",
+    "price": 6.99,
+    "originalPrice": 7.99,
+    "size": "3 oz bag",
+    "image": "/shop/adobo.webp",
+    "images": ["/shop/adobo.webp", "/shop/adobo-side.png"],
+    "badges": ["Salt-free", "No preservatives"],
+    "badge": "Best Seller",
+    "usage": ["Meat", "Eggs", "Vegetables", "Soups"],
+    "nutrition": { "servings": "about 18 (1 tsp)", "sodiumMg": 0, "calories": 0 },
+    "tags": ["blend", "salt-free", "garlic"]
+  },
+  {
+    "id": "sazon",
+    "slug": "sazon",
+    "name": "Mama Pacha Salt-Free Sazón 3 oz Bag",
+    "description": "Experience the vibrant taste of Latin tradition with Mama Pacha Sazón. No preservatives, no added salt—just clean, all-natural color and flavor packed in an eco-friendly, recyclable, refillable bag.",
+    "notes": "Annatto, coriander, garlic — clean color & flavor.",
+    "price": 7.99,
+    "originalPrice": 8.99,
+    "size": "3 oz bag",
+    "image": "/shop/sazon.webp",
+    "images": ["/shop/sazon.webp", "/shop/sazon-side.png"],
+    "badges": ["No preservatives", "All-natural color"],
+    "badge": "Customer Favorite",
+    "usage": ["Meat", "Rice", "Soups", "Stews", "Seafood"],
+    "nutrition": { "servings": "about 18 (1 tsp)", "sodiumMg": 0, "calories": 0 },
+    "tags": ["blend", "color", "annatto"]
+  }, {
+    "id": "trifongo-tray",
+    "slug": "catering-trays-trifongo",
+    "name": "Catering Trays – Mama Pacha Sabor Trifongo",
+    "description": "Experience the rich, iconic flavor of our Trifongo – Mama Pacha Sabor Style. A Boricua blend of mashed green plantains, yuca, and sweet plantains, seasoned with garlic, herbs, and our signature Caribbean mojo.",
+    "notes": "Soft, savory, and full of island soul. Perfect with pernil, pollo guisado, seafood, or any classic Caribbean meal.",
+    "price": 55,
+    "fromPrice": true,
+    "image": "/shop/trifongo-tray.png",
+    "images": ["/shop/trifongo-tray.png"],
+    "badges": ["Catering tray"],
+    "badge": "Boricua Favorite",
+    "usage": ["Family gatherings", "Parties", "Catering"],
+    "tags": ["trifongo", "plantains", "yuca", "catering"],
+    "variants": [
+      {
+        "id": "trifongo-small",
+        "label": "Small Tray (8–10 people)",
+        "size": "Small tray (8–10 people)",
+        "price": 55
+      },
+      {
+        "id": "trifongo-large",
+        "label": "Large Tray (20–30 people)",
+        "size": "Large tray (20–30 people)",
+        "price": 85
+      }
+    ]
+  },
+  {
+    "id": "coditos-tray",
+    "slug": "catering-trays-coditos",
+    "name": "Catering Trays – Mama Pacha Sabor Coditos (Macaroni Salad)",
+    "description": "Enjoy the classic, creamy flavor of our Coditos – Mama Pacha Sabor Style. Tender macaroni mixed with crisp vegetables, a perfectly seasoned mayo-based dressing, and a touch of Puerto Rican sazón.",
+    "notes": "Refreshing, smooth, and full of island comfort. Perfect for BBQs, family gatherings, and holidays.",
+    "price": 50,
+    "fromPrice": true,
+    "image": "/shop/coditos-tray.png",
+    "images": ["/shop/coditos-tray.png"],
+    "badges": ["Catering tray"],
+    "badge": "Family Favorite",
+    "usage": ["BBQs", "Parties", "Potlucks"],
+    "tags": ["coditos", "macaroni salad", "catering"],
+    "variants": [
+      {
+        "id": "coditos-small",
+        "label": "Small Tray (8–10 people)",
+        "size": "Small tray (8–10 people)",
+        "price": 50
+      },
+      {
+        "id": "coditos-large",
+        "label": "Large Tray (20–30 people)",
+        "size": "Large tray (20–30 people)",
+        "price": 75
+      }
+    ]
+  }, 
+  {
+    "id": "yuca-ajillo-tray",
+    "slug": "catering-trays-yuca-al-ajillo",
+    "name": "Catering Trays – Mama Pacha Sabor Yuca al Ajillo",
+    "description": "Savor the authentic flavor of our Yuca al Ajillo – Mama Pacha Sabor Style. Tender cassava tossed in garlic-infused olive oil with onions, herbs, and a touch of citrus for a true Puerto Rican taste.",
+    "notes": "Rich, simple, and full of island soul. Pairs beautifully with roasted meats, pernil, and poultry.",
+    "price": 50,
+    "fromPrice": true,
+    "image": "/shop/yuca-ajillo-tray.png",
+    "images": ["/shop/yuca-ajillo-tray.png"],
+    "badges": ["Catering tray"],
+    "badge": "Classic Side",
+    "usage": ["Side dish", "Roasted meats", "Pernil"],
+    "tags": ["yuca", "garlic", "catering"],
+    "variants": [
+      {
+        "id": "yuca-ajillo-small",
+        "label": "Small Tray (8–10 people)",
+        "size": "Small tray (8–10 people)",
+        "price": 50
+      },
+      {
+        "id": "yuca-ajillo-large",
+        "label": "Large Tray (20–30 people)",
+        "size": "Large tray (20–30 people)",
+        "price": 75
+      }
+    ]
+  },
+  {
+    "id": "gandules-tray",
+    "slug": "catering-trays-arroz-con-gandules",
+    "name": "Catering Trays – Mama Pacha Sabor Arroz con Gandules",
+    "description": "Savor the comforting, authentic taste of our Arroz con Gandules – Mama Pacha Sabor Style. Fluffy, perfectly seasoned rice simmered with tender gandules, aromatics, and a traditional Caribbean sofrito.",
+    "notes": "Warm, hearty, and full of island soul—enjoy it as the perfect side or as a stand-alone dish.",
+    "price": 50,
+    "fromPrice": true,
+    "image": "/shop/gandules-tray.png",
+    "images": ["/shop/gandules-tray.png"],
+    "badges": ["Catering tray"],
+    "badge": "Classic Dish",
+    "usage": ["Side dish", "Main dish", "Family gatherings"],
+    "tags": ["arroz con gandules", "rice", "catering"],
+    "variants": [
+      {
+        "id": "gandules-small",
+        "label": "Small Tray (8–10 people)",
+        "size": "Small tray (8–10 people)",
+        "price": 50
+      },
+      {
+        "id": "gandules-large",
+        "label": "Large Tray (20–30 people)",
+        "size": "Large tray (20–30 people)",
+        "price": 75
+      }
+    ]
+  },
+  {
+    "id": "empanadas",
+    "slug": "empanadas-uncooked",
+    "name": "Mama Pacha Sabor Empanadas (Uncooked)",
+    "description": "Handmade turnovers, ready to bake or fry at home. Each order includes 4 empanadas per filling—crispy, flaky, and packed with flavor.",
+    "notes": "Uncooked and frozen; fry or bake fresh at home.",
+    "price": 13.99,
+    "fromPrice": true,
+    "size": "4 empanadas per order",
+    "image": "/shop/empanadas.png",
+    "images": ["/shop/empanadas.png"],
+    "badges": ["Bake or fry at home"],
+    "badge": "Best Seller",
+    "usage": ["Snacks", "Parties", "Game night"],
+    "tags": ["empanadas", "frozen", "uncooked", "party"],
+    "variants": [
+      {
+        "id": "empanadas-beef",
+        "label": "Shredded Beef (4 x 6\" empanadas)",
+        "price": 14.99,
+        "notes": "Savory shredded beef with olives and potatoes, seasoned with Mama Pacha Sazón."
+      },
+      {
+        "id": "empanadas-chicken",
+        "label": "Chicken (4 x 6\" empanadas)",
+        "price": 14.99,
+        "notes": "Juicy chicken with olives and potatoes, elevated with Mama Pacha Sazón."
+      },
+      {
+        "id": "empanadas-patelon",
+        "label": "Patelón (4 x 6\" empanadas)",
+        "price": 14.99,
+        "notes": "Ground beef layered with sweet plantains and cheese—Patelón-inspired filling."
+      },
+      {
+        "id": "empanadas-pizza",
+        "label": "Pizza (4 x 6\" empanadas)",
+        "price": 13.99,
+        "notes": "Melty cheese + zesty sauce inside a golden, crispy shell."
+      },
+      {
+        "id": "empanadas-veggie",
+        "label": "Veggie (4 x 6\" empanadas)",
+        "price": 13.99,
+        "notes": "Hearty seasoned veggies with heritage spices—crispy, bold, and satisfying."
+      }
+    ],
+    "extraInfo": {
+      "bulkOffer": "Special pricing available for orders of 50+ empanadas.",
+      "options": [
+        "Uncooked (ready to bake or fry at home)",
+        "Cooked (fried or baked) – fresh and ready to enjoy"
+      ]
     }
-  ]
+  },
+  {
+    "id": "pulled-protein",
+    "slug": "pulled-pork-or-chicken",
+    "name": "Mama Pacha Sabor Pulled Pork or Chicken",
+    "description": "Slow-cooked, seasoned pulled pork or chicken with Mama Pacha’s signature Adobo and Sazón. Tender, juicy, and full of bold island flavor—perfect on its own, in sandwiches, tacos, or empanada fillings.",
+    "notes": "Rich, savory, and slow-roasted to perfection.",
+    "price": 9.99,
+    "originalPrice": 10.99,
+    "size": "Single portion",
+    "image": "/shop/pulled-protein.png",
+    "images": ["/shop/pulled-protein.png"],
+    "badges": ["Ready to heat & eat"],
+    "badge": "Customer Favorite",
+    "usage": ["Sandwiches", "Tacos", "Rice bowls", "Empanadas"],
+    "tags": ["pulled pork", "chicken", "ready-to-eat"],
+    "variants": [
+      {
+        "id": "pulled-pork",
+        "label": "Pulled Pork",
+        "price": 9.99
+      },
+      {
+        "id": "pulled-chicken",
+        "label": "Pulled Chicken",
+        "price": 9.99
+      }
+    ]
+  }
   
+    
+  
+  
+  
+  
+]

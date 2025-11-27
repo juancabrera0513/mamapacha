@@ -36,15 +36,15 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* ===== Inspiration — fondo #E43C31 ===== */}
-      <section className="bg-[#E43C31] text-white">
+      {/* ===== Inspiration — fondo #xd ===== */}
+      <section className="bg-[#1cbbc7] text-white">
         <div className="container-xl py-0">
           <Inspiration />
         </div>
       </section>
 
       {/* ===== ABOUT — HERO — fondo #1cbbc7 ===== */}
-      <section className="bg-[#1cbbc7] text-white">
+      <section className="bg-[#E43C31] text-white">
         <div className="container-xl py-16 sm:py-20">
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div className="space-y-4">
@@ -61,7 +61,7 @@ export default function Home() {
 
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden ring-1 ring-white/30 shadow-xl">
               <img
-                src="/images/about/hero.jpg"
+                src="/images/about/hero.webp"
                 alt="Mama Pacha Sabor — About"
                 className="h-full w-full object-cover"
                 loading="lazy"
@@ -72,7 +72,7 @@ export default function Home() {
       </section>
 
       {/* ===== ABOUT — BRAND PROMISE — fondo #E43C31 ===== */}
-      <section className="bg-[#E43C31] text-white">
+      <section className="bg-[#1cbbc7] text-white">
         <div className="container-xl py-16 sm:py-20">
           <div className="grid gap-10 md:grid-cols-[1.15fr,0.85fr] items-center">
             <div className="space-y-4">
@@ -111,14 +111,14 @@ export default function Home() {
       </section>
 
       {/* ===== ABOUT — COOKING FOR A CAUSE — fondo #1cbbc7 ===== */}
-      <section className="bg-[#1cbbc7] text-white">
+      <section className="bg-[#E43C31] text-white">
         <div className="container-xl py-16 sm:py-20">
           <div className="grid gap-10 md:grid-cols-2 items-center">
             {/* Imagen IZQUIERDA */}
             <div className="order-1 md:order-1">
               <div className="aspect-[4/3] rounded-3xl overflow-hidden ring-1 ring-white/30 bg-white/10 shadow-sm">
                 <img
-                  src="/images/about/cause-1.jpg"
+                  src="/images/about/cause-1.webp"
                   alt="Cooking for a cause"
                   className="h-full w-full object-cover"
                   loading="lazy"
@@ -164,7 +164,7 @@ export default function Home() {
       </section>
 
       {/* ===== FlavorShowcase — fondo #E43C31 ===== */}
-      <section className="bg-[#E43C31] text-white">
+      <section className="bg-[#1cbbc7] text-white">
         <div className="container-xl py-0">
           <FlavorShowcase videoId="DJItLcqxNHI" />
         </div>
@@ -173,7 +173,7 @@ export default function Home() {
       {/* ===== Products / Shop — fondo #1cbbc7 (HomeShop) ===== */}
       <HomeShop />
 
-      {/* ===== CTA STRIP — fondo #E43C31 ===== */}
+      {/* ===== CTA STRIP — fondo #E43C31 =====
       <section className="bg-[#E43C31] text-white">
         <div className="container-xl py-12">
           <div className="max-w-5xl mx-auto rounded-3xl bg-white/10 ring-1 ring-white/30 p-6 sm:p-8">
@@ -204,7 +204,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ===== SupportedBy — fondo #1cbbc7 ===== */}
       <section className="bg-[#1cbbc7] text-white">

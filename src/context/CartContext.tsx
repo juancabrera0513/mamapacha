@@ -7,8 +7,9 @@ type CartState = {
   items: LineItem[];
   add: (p: Product) => void;
   remove: (id: string) => void;
+  clearCart: () => void;
   count: number;
-  total: number;
+  total: number; // in dollars
 };
 
 const CartContext = createContext<CartState | null>(null);
@@ -32,13 +33,16 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
     setItems((prev) => prev.filter((li) => li.product.id !== id));
   };
 
+  const clearCart = () => setItems([]);
+
   const { count, total } = useMemo(() => {
     const c = items.reduce((acc, li) => acc + li.qty, 0);
     const t = items.reduce((acc, li) => acc + li.qty * li.product.price, 0);
     return { count: c, total: t };
   }, [items]);
 
-  const value = { items, add, remove, count, total };
+  const value = { items, add, remove, clearCart, count, total };
+
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
 

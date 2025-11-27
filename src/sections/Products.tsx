@@ -10,18 +10,45 @@ const BRAND_BORDER = "border-[#1cbcc6]";
 export default function Products() {
   const { add } = useCart();
 
-  // Buscar Sazón y Adobo desde el catálogo global (spices)
+  // Helpers de búsqueda en el catálogo global
+  const findById = (id: string) => PRODUCTS.find((p) => p.id === id);
+
+  // Spices
   const saz =
     PRODUCTS.find(
-      (p) => p.id.toLowerCase().includes("sazón") || p.id.toLowerCase().includes("sazon")
+      (p) =>
+        p.id.toLowerCase().includes("sazón") ||
+        p.id.toLowerCase().includes("sazon")
     ) ||
     PRODUCTS.find(
       (p) => p.id === "sazon" || p.name.toLowerCase().includes("sazón")
     );
-  const adobo =
-    PRODUCTS.find((p) => p.id === "adobo" || p.name.toLowerCase().includes("adobo"));
 
-  // Normalizador para la card del home
+  const adobo =
+    PRODUCTS.find(
+      (p) => p.id === "adobo" || p.name.toLowerCase().includes("adobo")
+    );
+
+  // Merch & prepared items desde el catálogo
+  const apron = findById("apron");
+  const chefCoat = findById("chef-coat");
+  const pulledProtein = findById("pulled-protein");
+  const empanadas = findById("empanadas");
+
+  // CatalogProduct -> HomeProduct
+  const catalogToHome = (p: CatalogProduct): HomeProduct => ({
+    id: p.id,
+    name: p.name,
+    image: p.image,
+    description: p.description,
+    size: (p as any).size,
+    price: (p as any).price,
+    fromPrice: (p as any).fromPrice,
+    salePrice: (p as any).originalPrice ? (p as any).price : undefined,
+    titleSizeClass: undefined,
+  });
+
+  // Normalizador para la card del home (spices)
   const spiceToHome = (p: any): HomeProduct => ({
     id: p.id,
     name: p.name,
@@ -31,44 +58,14 @@ export default function Products() {
     price: p.price,
   });
 
-  // ORDEN: Sazón, Adobo, Apron ($25), Chef Coat ($30), Pulled Pork/Chicken, Empanadas
+  // ORDEN: Sazón, Adobo, Apron, Chef Coat, Pulled Pork/Chicken, Empanadas
   const items: HomeProduct[] = [
     ...(saz ? [spiceToHome(saz)] : []),
     ...(adobo ? [spiceToHome(adobo)] : []),
-
-    // Merch (usa tus rutas bajo /products como dijiste)
-    {
-      id: "mama-pacha-apron",
-      name: "Mama Pacha Sabor Apron",
-      image: "/products/apron.png",
-      description: "Durable, comfortable apron for your kitchen sessions.",
-      price: 25,
-    },
-    {
-      id: "mama-pacha-chef-coat",
-      name: "Mama Pacha Sabor Chef Coat",
-      image: "/products/chef-coat.jpg",
-      description: "Professional chef coat—clean look, comfy fit.",
-      price: 30,
-    },
-
-    // Catering
-    {
-      id: "pulled-pork-or-chicken",
-      name: "Mama Pacha Sabor Pulled Pork or Chicken",
-      image: "/products/pulled-pork-or-chicken.jpg",
-      description: "Slow-cooked flavor, perfect for bowls, tacos, or sliders.",
-      // price: 9.99,
-    },
-    {
-      id: "empanadas-uncooked-4",
-      name:
-        "Mama Pacha Sabor Empanadas(Un-cooked) - 4 per order, per filling",
-      image: "/products/empanadas-uncooked-4.jpg",
-      description: "Freshly assembled and frozen. Bake or fry at home.",
-      fromPrice: 13.0,
-      titleSizeClass: "text-sm sm:text-[15px]",
-    },
+    ...(apron ? [catalogToHome(apron)] : []),
+    ...(chefCoat ? [catalogToHome(chefCoat)] : []),
+    ...(pulledProtein ? [catalogToHome(pulledProtein)] : []),
+    ...(empanadas ? [catalogToHome(empanadas)] : []),
   ];
 
   // HomeProduct -> CatalogProduct para CartContext.add(product)
@@ -100,8 +97,6 @@ export default function Products() {
         <video
           className="h-full w-full object-cover"
           src="/media/shop-bg2.mp4"
-          // Si tienes una imagen poster, descomenta:
-          // poster="/media/shop-bg-poster.jpg"
           muted
           loop
           playsInline
@@ -109,25 +104,22 @@ export default function Products() {
           preload="metadata"
           aria-hidden="true"
         />
-        {/* Scrim sutil para legibilidad del texto sobre el video */}
         <div className="absolute inset-0 mix-blend-normal" />
       </div>
 
-      {/* Respeta usuarios que prefieren reducir animaciones */}
       <style>{`
         @media (prefers-reduced-motion: reduce) {
           #shop video { animation: none !important }
         }
       `}</style>
 
-      {/* ===== Contenido ===== */}
       <div className="relative container-xl py-16 sm:py-20">
         <header className="mb-8 sm:mb-10 text-center">
           <h2 className="font-serif text-3xl sm:text-4xl font-extrabold tracking-tight">
             Shop Menu &amp; Merch
           </h2>
           <p className="mt-2 max-w-2xl mx-auto text-sm text-neutral-800">
-            Explore our spices, merch, and catering items.
+            Explore our spices, merch, and prepared favorites.
           </p>
         </header>
 

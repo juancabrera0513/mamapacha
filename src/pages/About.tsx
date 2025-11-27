@@ -28,7 +28,7 @@ export default function AboutPage() {
 
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden ring-1 ring-white/30 shadow-xl">
               <img
-                src="/images/about/hero.jpg"
+                src="/images/about/hero.webp"
                 alt="Mama Pacha Sabor — About"
                 className="h-full w-full object-cover"
                 loading="lazy"
@@ -103,7 +103,7 @@ export default function AboutPage() {
             <div className="order-1 md:order-1">
               <div className="aspect-[4/3] rounded-3xl overflow-hidden ring-1 ring-neutral-200 bg-neutral-100 shadow-sm">
                 <img
-                  src="/images/about/cause-1.jpg"
+                  src="/images/about/cause-1.webp"
                   alt="Cooking for a cause"
                   className="h-full w-full object-cover"
                   loading="lazy"

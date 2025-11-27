@@ -236,24 +236,25 @@ export default function Header() {
                 </NavLink>
               </nav>
 
-              {/* Cart a la derecha */}
-              <NavLink
-                to="/#cart"
-                className={[
-                  "relative inline-flex items-center justify-center flex-shrink-0",
-                  "h-10 w-10 rounded-xl border transition",
-                  scrolled
-                    ? "border-neutral-200 text-neutral-800 hover:bg-neutral-100"
-                    : "border-white/30 text-white hover:bg-white/10",
-                ].join(" ")}
-                aria-label="Cart"
-                title="Cart"
-              >
-                <span className="text-[18px]">🛒</span>
-                <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] rounded-full bg-[#E7303A] text-white text-[10px] font-bold grid place-items-center px-1">
-                  {count}
-                </span>
-              </NavLink>
+            {/* Cart */}
+<NavLink
+  to="/checkout"   // 👈 antes era "/#cart"
+  className={[
+    "relative inline-flex items-center justify-center flex-shrink-0",
+    "h-9 w-9 rounded-full border transition",
+    scrolled
+      ? "border-neutral-200 text-neutral-800 hover:bg-neutral-100"
+      : "border-white/30 text-white hover:bg-white/10",
+  ].join(" ")}
+  aria-label="Cart"
+  title="Cart"
+>
+  <span className="text-[16px]">🛒</span>
+  <span className="absolute top-0.5 right-0.5 min-w-[14px] h-[14px] rounded-full bg-[#E7303A] text-white text-[9px] font-bold leading-none grid place-items-center px-0.5">
+    {count}
+  </span>
+</NavLink>
+
             </div>
           </div>
         </div>

@@ -37,6 +37,19 @@ function isSpiceName(name: string) {
   );
 }
 
+function catalogToHome(p: CatalogProduct): HomeProduct {
+  return {
+    id: p.id,
+    name: p.name,
+    image: p.image,
+    description: p.description,
+    size: (p as any).size,
+    price: (p as any).price,
+    fromPrice: (p as any).fromPrice,
+    salePrice: (p as any).originalPrice ? (p as any).price : undefined,
+  };
+}
+
 function makeSpiceCardLike(p: any): HomeProduct {
   return {
     id: p.id,
@@ -51,14 +64,14 @@ function makeSpiceCardLike(p: any): HomeProduct {
 /* ---------- MERCH (local) ---------- */
 const MERCH: HomeProduct[] = [
   {
-    id: "mama-pacha-apron",
+    id: "apron",
     name: "Mama Pacha Sabor Apron",
     image: "/products/apron.png",
     description: "Durable, comfortable apron for your kitchen sessions.",
     price: 25,
   },
   {
-    id: "mama-pacha-chef-coat",
+    id: "chef-coat",
     name: "Mama Pacha Sabor Chef Coat",
     image: "/products/chef-coat.jpg",
     description: "Professional chef coat—clean look, comfy fit.",
@@ -75,22 +88,32 @@ function CateringInquiryCard() {
     const fd = new FormData(e.currentTarget);
     const subject = encodeURIComponent("Catering Inquiry — Mama Pacha Sabor");
     const body = encodeURIComponent(
-      `Hello Mama Pacha!\n\nI'd like a catering quote.\n\nName: ${fd.get("name")}\nEmail: ${fd.get(
-        "email"
-      )}\nEvent date: ${fd.get("date")}\nGuests: ${fd.get("guests")}\nNotes:\n${fd.get(
+      `Hello Mama Pacha!\n\nI'd like a catering quote.\n\nName: ${fd.get(
+        "name"
+      )}\nEmail: ${fd.get("email")}\nEvent date: ${fd.get(
+        "date"
+      )}\nGuests: ${fd.get("guests")}\nNotes:\n${fd.get(
         "notes"
       )}\n\nThank you!`
     );
-    window.open(`mailto:hola@mamapachasabor.com?subject=${subject}&body=${body}`, "_blank");
+    window.open(
+      `mailto:hola@mamapachasabor.com?subject=${subject}&body=${body}`,
+      "_blank"
+    );
     formRef.current?.reset();
-    alert("Thanks! We opened your email app with the details. We'll get back to you ASAP.");
+    alert(
+      "Thanks! We opened your email app with the details. We'll get back to you ASAP."
+    );
   };
 
   return (
     <div className="rounded-2xl bg-white ring-1 ring-black/10 shadow-sm p-6">
-      <h3 className="text-xl font-extrabold text-neutral-900">Request a Catering Quote</h3>
+      <h3 className="text-xl font-extrabold text-neutral-900">
+        Request a Catering Quote
+      </h3>
       <p className="mt-1 text-sm text-neutral-700">
-        Tell us about your event and we’ll reply with a custom menu and pricing.
+        Tell us about your event and we’ll reply with a custom menu and
+        pricing.
       </p>
 
       <form ref={formRef} className="mt-4 grid gap-3" onSubmit={onSubmit}>
@@ -147,18 +170,21 @@ function CateringInquiryCard() {
   );
 }
 
-/* ---------- HomeShop (sin tocar la URL) ---------- */
+/* ---------- HomeShop ---------- */
 export default function HomeShop() {
   // Leer categoría inicial de la URL una sola vez (no muta la URL al cambiar)
   const initialCat: Category = React.useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     const c = params.get("category") as Category | null;
-    return c === "all" || c === "spices" || c === "merch" || c === "catering" ? c : "all";
+    return c === "all" || c === "spices" || c === "merch" || c === "catering"
+      ? c
+      : "all";
   }, []);
   const [category, setCategory] = React.useState<Category>(initialCat);
 
   const { add } = useCart();
 
+  /* ----- Spices desde el catálogo ----- */
   const spiceProducts: HomeProduct[] = React.useMemo(() => {
     const primary: HomeProduct[] = [];
     const rest: HomeProduct[] = [];
@@ -166,7 +192,9 @@ export default function HomeShop() {
     const sazon =
       PRODUCTS.find((p) => p.id === "sazon") ||
       PRODUCTS.find(
-        (p) => p.name?.toLowerCase().includes("sazón") || p.name?.toLowerCase().includes("sazon")
+        (p) =>
+          p.name?.toLowerCase().includes("sazón") ||
+          p.name?.toLowerCase().includes("sazon")
       );
     const adobo =
       PRODUCTS.find((p) => p.id === "adobo") ||
@@ -176,51 +204,83 @@ export default function HomeShop() {
     if (adobo) primary.push(makeSpiceCardLike(adobo));
 
     PRODUCTS.forEach((p) => {
-      const already = (sazon && p.id === sazon.id) || (adobo && p.id === adobo.id);
-      if (!already && isSpiceName(p.name ?? p.id)) rest.push(makeSpiceCardLike(p));
+      const already =
+        (sazon && p.id === sazon.id) || (adobo && p.id === adobo.id);
+      if (!already && isSpiceName(p.name ?? p.id)) {
+        rest.push(makeSpiceCardLike(p));
+      }
     });
 
     return [...primary, ...rest];
   }, []);
 
+  /* ----- Merch (cards) ----- */
   const merchProducts: HomeProduct[] = MERCH;
 
+  /* ----- Catering (trays + empanadas + pulled) ----- */
+  const cateringProducts: HomeProduct[] = React.useMemo(() => {
+    const ids = [
+      "trifongo-tray",
+      "yuca-ajillo-tray",
+      "coditos-tray",
+      "gandules-tray",
+      "empanadas",
+      "pulled-protein",
+    ];
+    return PRODUCTS.filter((p) => ids.includes(p.id)).map(catalogToHome);
+  }, []);
+
   const list =
-    category === "all"
-      ? [...spiceProducts, ...merchProducts]
-      : category === "spices"
-      ? spiceProducts
-      : category === "merch"
-      ? merchProducts
-      : []; // "catering" => sin cards
+  category === "all"
+    ? [...spiceProducts, ...merchProducts, ...cateringProducts]
+    : category === "spices"
+    ? spiceProducts
+    : category === "merch"
+    ? merchProducts
+    : cateringProducts; 
 
   return (
-    <section id="shop" className="bg-[#1cbbc7]">
+    <section id="shop" className="bg-[#E43C31]">
       <div className="container-xl py-12 sm:py-16">
-        {/* Header separado, sobre el fondo cian */}
+        {/* Header */}
         <header className="text-center text-white">
           <h2 className="font-serif text-3xl sm:text-4xl font-extrabold drop-shadow-[0_1px_0_rgba(0,0,0,0.20)]">
             Shop
           </h2>
           <p className="mt-1 text-white/90 text-sm">
-            Explore our <strong>Spices</strong>, <strong>Merch</strong>, and request{" "}
+            Explore our <strong>Spices</strong>, <strong>Merch</strong>, and{" "}
             <strong>Catering</strong>.
           </p>
         </header>
 
-        {/* Panel blanco para contraste de tabs + cards */}
+        {/* Panel blanco para tabs + cards */}
         <div className="mt-6 rounded-3xl bg-white ring-1 ring-black/10 shadow-sm p-5 sm:p-7">
-          {/* Tabs como BOTONES (no enlaces) y sin modificar la URL) */}
+          {/* Tabs (no modifican la URL) */}
           <div className="flex justify-center">
-            {/* Contenedor “píldora” para un look más claro sobre fondo blanco */}
             <div className="rounded-full bg-neutral-50 ring-1 ring-neutral-200 px-2 py-1">
-              <CategoryTabs value={category} onChange={setCategory} asLinks={false} />
+              <CategoryTabs
+                value={category}
+                onChange={setCategory}
+                asLinks={false}
+              />
             </div>
           </div>
 
           {category === "catering" ? (
-            <div className="mt-8">
-              <CateringInquiryCard />
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:gap-7 md:grid-cols-2 lg:grid-cols-3">
+              {cateringProducts.map((p) => (
+                <ProductCardHome
+                  key={p.id}
+                  product={p}
+                  accent="red"
+                  onAdd={(prod) => add(toCatalogProduct(prod))}
+                />
+              ))}
+
+              {/* Card de formulario ocupa ancho completo en desktop */}
+              <div className="md:col-span-2 lg:col-span-3">
+                <CateringInquiryCard />
+              </div>
             </div>
           ) : (
             <div className="mt-8 grid grid-cols-1 gap-6 sm:gap-7 md:grid-cols-2 lg:grid-cols-3">
@@ -228,7 +288,7 @@ export default function HomeShop() {
                 <ProductCardHome
                   key={p.id}
                   product={p}
-                  accent="red" // botones rojos marca
+                  accent="red"
                   onAdd={(prod) => add(toCatalogProduct(prod))}
                 />
               ))}
