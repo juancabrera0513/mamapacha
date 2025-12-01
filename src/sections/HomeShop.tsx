@@ -4,6 +4,7 @@ import CategoryTabs, { Category } from "@/components/CategoryTabs";
 import ProductCardHome, { HomeProduct } from "@/components/ProductCardHome";
 import { useCart } from "@/context/CartContext";
 import { PRODUCTS, Product as CatalogProduct } from "@/data/site";
+import MerchComingSoon from "@/components/MerchComingSoon"; // 👈 NEW
 
 /* ---------- helpers ---------- */
 function toCatalogProduct(p: HomeProduct): CatalogProduct {
@@ -60,24 +61,6 @@ function makeSpiceCardLike(p: any): HomeProduct {
     price: p.price,
   };
 }
-
-/* ---------- MERCH (local) ---------- */
-const MERCH: HomeProduct[] = [
-  {
-    id: "apron",
-    name: "Mama Pacha Sabor Apron",
-    image: "/products/apron.png",
-    description: "Durable, comfortable apron for your kitchen sessions.",
-    price: 25,
-  },
-  {
-    id: "chef-coat",
-    name: "Mama Pacha Sabor Chef Coat",
-    image: "/products/chef-coat.jpg",
-    description: "Professional chef coat—clean look, comfy fit.",
-    price: 30,
-  },
-];
 
 /* ---------- Catering form (inline) ---------- */
 function CateringInquiryCard() {
@@ -214,9 +197,6 @@ export default function HomeShop() {
     return [...primary, ...rest];
   }, []);
 
-  /* ----- Merch (cards) ----- */
-  const merchProducts: HomeProduct[] = MERCH;
-
   /* ----- Catering (trays + empanadas + pulled) ----- */
   const cateringProducts: HomeProduct[] = React.useMemo(() => {
     const ids = [
@@ -230,14 +210,17 @@ export default function HomeShop() {
     return PRODUCTS.filter((p) => ids.includes(p.id)).map(catalogToHome);
   }, []);
 
+  // 🧊 Merch oculto en Home:
+  // - En "all" solo mostramos spices + catering
+  // - En "merch" mostramos componente MerchComingSoon
   const list =
-  category === "all"
-    ? [...spiceProducts, ...merchProducts, ...cateringProducts]
-    : category === "spices"
-    ? spiceProducts
-    : category === "merch"
-    ? merchProducts
-    : cateringProducts; 
+    category === "all"
+      ? [...spiceProducts, ...cateringProducts]
+      : category === "spices"
+      ? spiceProducts
+      : category === "merch"
+      ? [] // manejado abajo con <MerchComingSoon />
+      : cateringProducts;
 
   return (
     <section id="shop" className="bg-[#E43C31]">
@@ -281,6 +264,10 @@ export default function HomeShop() {
               <div className="md:col-span-2 lg:col-span-3">
                 <CateringInquiryCard />
               </div>
+            </div>
+          ) : category === "merch" ? (
+            <div className="mt-8">
+              <MerchComingSoon />
             </div>
           ) : (
             <div className="mt-8 grid grid-cols-1 gap-6 sm:gap-7 md:grid-cols-2 lg:grid-cols-3">
